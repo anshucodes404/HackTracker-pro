@@ -1,7 +1,7 @@
 import mongoose, {Schema, Document} from "mongoose";
 
 export interface ITeamMember {
-    userId: Schema.Types.ObjectId;
+    userId: mongoose.Types.ObjectId;
     role: string;
     name: string;
     joinedAt: Date;
@@ -10,9 +10,9 @@ export interface ITeamMember {
 export interface ITeam extends Document{
     name: string;
     members: ITeamMember[];
-    hackathonId: Schema.Types.ObjectId;
-    leader: Schema.Types.ObjectId;
-    status: "Forming" | "Registered" | "Disqualified";
+    hackathonId: mongoose.Types.ObjectId;
+    leader: mongoose.Types.ObjectId;
+    status: "Forming" | "Registered" | "Disqualified" | "Won";
     createdAt: Date;
     updatedAt: Date;
 }
@@ -51,7 +51,7 @@ export const teamSchema = new Schema<ITeam>({
     members: [teamMemberSchema],
     status:{
         type: String ,
-        enum: ["Forming", "Registered", "Disqualified"],
+        enum: ["Forming", "Registered", "Disqualified", "Won"],
         default: "Forming"
     }
 }, {timestamps: true})
