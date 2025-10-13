@@ -1,5 +1,4 @@
 import mongoose, { Schema, Document } from "mongoose";
-import jwt from "jsonwebtoken";
 
 export interface IUser extends Document {
   name: string;
@@ -7,9 +6,7 @@ export interface IUser extends Document {
   collegeEmail: string;
   email: string;
   rollno: number;
-  otp?: number;
-  otpExpiry: number;
-  refreshToken: string;
+  token?: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -35,16 +32,9 @@ export const userSchema: Schema<IUser> = new Schema(
     rollno: {
       type: Number,
     },
-    otp: {
-      type: Number,
-    },
-    otpExpiry: {
-      type: Number,
-      default: 3600,
-    },
-    refreshToken: {
+    token: {
       type: String,
-      required: true,
+      
     },
   },
   { timestamps: true }

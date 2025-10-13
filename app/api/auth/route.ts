@@ -1,10 +1,10 @@
 import { IUser, User } from "@/models/user.model";
 import dbConnect from "@/lib/dbConnect";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import z from "zod";
 import { ApiResponse } from "@/utils/ApiResponse";
 import { OTP } from "@/models/otp.model";
-import jwt, { SignOptions } from "jsonwebtoken"
+import jwt, { SignOptions } from "jsonwebtoken";
 
 const logInSchema = z.object({
   collegeEmail: z.email(),
@@ -21,8 +21,8 @@ const signUpSchema = z.object({
   mode: z.enum(["login", "signup"]),
 });
 
-export async function POST(req: NextRequest) {
-  let user: IUser | null
+export async function POST(req: Request) {
+  let user: IUser;
   await dbConnect();
   try {
     const body = await req.json();
@@ -52,7 +52,7 @@ export async function POST(req: NextRequest) {
         });
       }
 
-      user = await User.findOne({ collegeEmail });
+      user = (await User.findOne({ collegeEmail })) as IUser;
     } else {
       const parsedBody = signUpSchema.safeParse(body);
 
@@ -65,9 +65,11 @@ export async function POST(req: NextRequest) {
         );
       }
 
-      const { name, collegeEmail, email, githubUsername, otp } = parsedBody.data;
+      const { name, collegeEmail, email, githubUsername, otp } =
+        parsedBody.data;
 
       const otpDoc = await OTP.findOne({ collegeEmail });
+      console.log(otpDoc)
 
       if (otp != otpDoc.otp) {
         return NextResponse.json(new ApiResponse(false, "OTP does not match"), {
@@ -75,7 +77,7 @@ export async function POST(req: NextRequest) {
         });
       }
 
-      const rollno = collegeEmail.split("@")[0];
+      const rollno = parseInt(collegeEmail.split("@")[0]);
 
       user = await User.create({
         name,
@@ -95,22 +97,27 @@ export async function POST(req: NextRequest) {
     //Now Isssuing tokens
 
     const payload: jwt.JwtPayload = {
-        _id: user?._id,
-        collegeEmail: user?.collegeEmail,
-    }
-    const secret = process.env.JWT_TOKEN_SECRET as string
+      _id: user?._id,
+      collegeEmail: user?.collegeEmail,
+    };
+    const secret = process.env.JWT_TOKEN_SECRET as string;
     const expiry = {
-        expiresIn: process.env.JWT_TOKEN_EXPIRY_DATE as SignOptions["expiresIn"]
-    }
+      expiresIn: process.env.JWT_TOKEN_EXPIRY_DATE as SignOptions["expiresIn"],
+    };
 
-    const token = jwt.sign(payload, secret, expiry)
+    const token = jwt.sign(payload, secret, expiry);
 
-    const response = NextResponse.json(new ApiResponse(true, "Authentication successfull", user), {status: 200})
+    user.token = token;
+    await user.save();
 
-    response.cookies.set("Token", token, {httpOnly: true, secure: true})
+    const response = NextResponse.json(
+      new ApiResponse(true, "Authentication successfull", user),
+      { status: 200 }
+    );
 
-    return response
+    response.cookies.set("Token", token, { httpOnly: true, secure: true });
 
+    return response;
   } catch (error) {
     console.error("Error while Authenticating", error);
     return NextResponse.json(
