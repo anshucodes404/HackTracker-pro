@@ -6,8 +6,8 @@ class ApiResponse {
   constructor(
     success: boolean,
     msg: string,
-    err?: string,
-    data?: unknown
+    data?: unknown,
+    err?: unknown,
   ) {
     this.success = success;
     this.message = `${msg}${err ? `, ${err}` : ""}`

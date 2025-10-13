@@ -3,8 +3,8 @@ import jwt from "jsonwebtoken";
 
 export interface IUser extends Document {
   name: string;
-  username: string;
-  collegeId: string;
+  githubUsername?: string;
+  collegeEmail: string;
   email: string;
   rollno: number;
   otp?: number;
@@ -12,7 +12,6 @@ export interface IUser extends Document {
   refreshToken: string;
   createdAt: Date;
   updatedAt: Date;
-  generateAccessToken(): string;
 }
 
 export const userSchema: Schema<IUser> = new Schema(
@@ -21,12 +20,10 @@ export const userSchema: Schema<IUser> = new Schema(
       type: String,
       required: true
     },
-    username: {
+    githubUsername: {
       type: String,
-      required: true,
-      unique: true,
     },
-    collegeId: {
+    collegeEmail: {
       type: String,
       required: true
     },
@@ -53,21 +50,6 @@ export const userSchema: Schema<IUser> = new Schema(
   { timestamps: true }
 );
 
-userSchema.methods.generateAccessToken = function (): string {
-  const payload = {
-    _id: this._id,
-    username: this.username,
-    email: this.email,
-  };
-
-  const secret = process.env.ACCESS_TOKEN_SECRET as string;
-  const options: jwt.SignOptions = {
-    expiresIn: process.env
-      .ACCESS_TOKEN_EXPIRY_DATE as jwt.SignOptions["expiresIn"],
-  };
-
-  return jwt.sign(payload, secret, options);
-};
 
 export const User =
   (mongoose.models.User as mongoose.Model<IUser>) ||

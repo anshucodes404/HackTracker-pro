@@ -13,7 +13,7 @@ const transporter = nodemailer.createTransport({
 export const sendInviteEmail = async (to: string, teamName: string, link: string) => {
   try {
     const info = await transporter.sendMail({
-      from: `"HackTracker Pro" <${process.env.SMTP_USER}>`,
+      from: `"HackHub" <${process.env.SMTP_USER}>`,
       to,
       subject: `You’re invited to join team ${teamName}!`,
       html: `
