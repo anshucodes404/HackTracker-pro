@@ -1,7 +1,7 @@
 "use client";
 
-import { userObjectType } from "@/app/types/types";
-import { useRouter } from "next/navigation";
+import { signInuserObjectType } from "@/app/types/types";
+// import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import VerifyOTP from "../verifyOTP/page";
 
@@ -10,7 +10,7 @@ import VerifyOTP from "../verifyOTP/page";
 
 const Page = () => {
 
-    const router = useRouter()
+    // const router = useRouter()
 
 
   const userObject = {
@@ -21,7 +21,7 @@ const Page = () => {
     mode: ""
   };
 
-  const [user, setUser] = useState<userObjectType>(userObject);
+  const [user, setUser] = useState<signInuserObjectType>(userObject);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
