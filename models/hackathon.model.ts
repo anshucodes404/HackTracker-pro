@@ -1,15 +1,23 @@
 import mongoose, { Schema, Document } from "mongoose";
+import { required } from "zod/mini";
 
 export interface IHackathon extends Document {
-  title: string;
+  hackathonName: string;
+  tagline?: string;
   description: string;
   paricipants?: mongoose.Types.ObjectId[];
   rules?: string;
   organiser: mongoose.Types.ObjectId;
   startAt: Date;
-  endAt: Date;
+  duration: string;
+  registrationDeadline: Date;
   minTeamSize: number;
   maxTeamSize: number;
+  criteria: string[];
+  bannerImage?: string;
+  organiserEmail: string;
+  socialLink?: string;
+  webSiteLink?: string;
   tags?: string[];
   status: "draft" | "published" | "closed";
   createdAt: Date;
@@ -18,8 +26,11 @@ export interface IHackathon extends Document {
 
 const hackathonSchema = new Schema<IHackathon>(
   {
-    title: {
+    hackathonName: {
       type: String,
+    },
+    tagline: {
+      type: String
     },
     description: {
       type: String,
@@ -39,15 +50,36 @@ const hackathonSchema = new Schema<IHackathon>(
       type: Date,
       required: true,
     },
-    endAt: {
+    duration: {
+      type: String,
+      required: true
+    },
+    registrationDeadline: {
       type: Date,
-      required: true,
+      required: true
     },
     minTeamSize: {
       type: Number,
     },
     maxTeamSize: {
       type: Number,
+    },
+    criteria: {
+      type: [String],
+      required: true
+    },
+    bannerImage: {
+      type: String
+    },
+    organiserEmail: {
+      type: String,
+      required: true
+    },
+    socialLink: {
+      type: String,
+    },
+    webSiteLink: {
+      type: String
     },
     tags: {
       type: [String],
