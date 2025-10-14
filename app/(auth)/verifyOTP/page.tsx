@@ -7,7 +7,7 @@ import {
   signInuserObjectType,
   signupUser,
   verifyOTPProps,
-} from "@/app/types/types";
+} from "@/types/types";
 
 const VerifyOTP: React.FC<verifyOTPProps> = ({ user }) => {
   const [otp, setOtp] = useState<string>("");
@@ -22,7 +22,6 @@ const VerifyOTP: React.FC<verifyOTPProps> = ({ user }) => {
         otp,
         mode: (user as logInuserObjectType).mode,
       };
-     
     } else {
       return {
         name: (user as signInuserObjectType).name,
@@ -32,7 +31,6 @@ const VerifyOTP: React.FC<verifyOTPProps> = ({ user }) => {
         otp,
         mode: (user as signInuserObjectType).mode,
       };
-     
     }
   };
 

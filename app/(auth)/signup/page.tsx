@@ -1,24 +1,19 @@
 "use client";
 
-import { signInuserObjectType } from "@/app/types/types";
+import { signInuserObjectType } from "@/types/types";
 // import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import VerifyOTP from "../verifyOTP/page";
 
-
-
-
 const Page = () => {
-
-    // const router = useRouter()
-
+  // const router = useRouter()
 
   const userObject = {
     name: "",
     collegeEmail: "",
     email: "",
     githubUsername: "",
-    mode: ""
+    mode: "",
   };
 
   const [user, setUser] = useState<signInuserObjectType>(userObject);
@@ -36,15 +31,12 @@ const Page = () => {
     }).then((data) => data.json());
 
     const data = res.data;
-    if(res.success){
-        user.mode = data.mode
-        // router.push("/verifyOTP")
+    if (res.success) {
+      user.mode = data.mode;
+      // router.push("/verifyOTP")
     }
 
-
     console.log(data);
-
-
   };
 
   return (
@@ -82,7 +74,7 @@ const Page = () => {
           Get OTP
         </button>
       </form>
-        <VerifyOTP user={user}/>
+      <VerifyOTP user={user} />
     </>
   );
 };
