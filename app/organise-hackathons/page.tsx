@@ -1,10 +1,73 @@
 // components/OrganizeHackathonForm.tsx
 "use client";
-import { Input, Section, Textarea } from "@/components/ui";
-import { FormEvent } from "react";
+import React, { useState } from "react";
+import { Input, Section, Textarea, Button } from "@/components/ui";
 
 export default function Page() {
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+
+  const [submitting, setSubmitting] = useState<boolean>(false)
+  const [uploading, setUploading] = useState<boolean>(false)
+  // let bannerURL: string | undefined = undefined;
+  const [error, setError] = useState<string>("")
+
+  const CLOUD_NAME = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
+
+  // const uploadImage = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  //   e.preventDefault();
+
+  //   const form = e.currentTarget.form as HTMLFormElement | null;
+  //   if (!form) {
+  //     setError("Form not found");
+  //     return;
+  //   }
+
+  //   const formData = new FormData(form);
+  //   const file = formData.get("bannerImage") as File | null;
+
+  //   if (!file) {
+  //     setError("No Banner Image is selected");
+  //     return;
+  //   }
+
+  //   try {
+  //     setUploading(true);
+  //     const signRes = await fetch("/api/cloudinary").then(res => res.json());
+      
+  //     if(!signRes.success){
+  //       throw new Error("Failed to get cloudinary signature")
+  //     }
+
+  //     console.log(signRes.data)
+
+  //     const {cloudName, apiKey, signature, timestamp, folder} = signRes.data;
+
+  //      const cdnFormData = new FormData()
+  //      cdnFormData.append("file", file)
+  //      cdnFormData.append("api_key", apiKey)
+  //      cdnFormData.append("timestamp", timestamp)
+  //      cdnFormData.append("signature", signature)
+  //      cdnFormData.append("folder", folder)
+
+  //       console.log(cdnFormData)
+
+  //       const cloudRes = await fetch(
+  //         `https://api.cloudinary.com/v1_1/${cloudName || CLOUD_NAME}/image/upload`,
+  //         {
+  //           method: "POST",
+  //           body: cdnFormData
+  //         }
+  //       );
+  //       const cloudJson = await cloudRes.json();
+  //       if (!cloudRes.ok) throw new Error(cloudJson.error?.message || "Cloudinary upload failed");
+  //       bannerURL = cloudJson.secure_url as string;
+  //       console.log(bannerURL)
+  //   } finally{
+  //     setUploading(false)
+  //   }
+  
+  // };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     for (const [key, value] of formData.entries()) {
@@ -104,9 +167,10 @@ export default function Page() {
             </div>
           </Section>
 
-          <Section title="Media Upload">
-            <Input name="bannerImage" label="Banner Image" type="file" />
-          </Section>
+          {/* <Section title="Media Upload"> 
+            <Input name="bannerImage" label="Banner Image" type="file"  />
+            <Button type="button" className="mt-3 px-6 w-full md:w-28">Upload</Button>         
+          </Section> */}
 
           <Section title="Organizer Details">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -137,12 +201,12 @@ export default function Page() {
           </Section>
 
           <div className="border-t border-gray-200 mt-10 pt-6 text-right">
-            <button
+            <Button
               type="submit"
               className="bg-blue-600 text-white font-medium px-6 py-2 rounded-md hover:bg-blue-700 transition"
             >
               Create Hackathon
-            </button>
+            </Button>
           </div>
         </div>
       </form>

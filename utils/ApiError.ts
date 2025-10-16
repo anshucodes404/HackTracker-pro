@@ -5,7 +5,7 @@ class ApiError extends Error {
   constructor(
     status: number,
     message: string = "Something went wrong",
-    error: unknown
+    error?: unknown
   ) {
     super(message);
     this.status = status;

@@ -1,8 +1,8 @@
 import mongoose, { Schema, Document } from "mongoose";
-import { required } from "zod/mini";
 
 export interface IHackathon extends Document {
   hackathonName: string;
+  mode: "online" | "inplace";
   tagline?: string;
   description: string;
   paricipants?: mongoose.Types.ObjectId[];
@@ -13,13 +13,13 @@ export interface IHackathon extends Document {
   registrationDeadline: Date;
   minTeamSize: number;
   maxTeamSize: number;
-  criteria: string[];
-  bannerImage?: string;
+  criteria: string;
+  // bannerImage?: string;
   organiserEmail: string;
   socialLink?: string;
   webSiteLink?: string;
   tags?: string[];
-  status: "draft" | "published" | "closed";
+  status: "draft" | "open" | "ended" | "upcoming";
   createdAt: Date;
   updatedAt: Date;
 }
@@ -28,6 +28,10 @@ const hackathonSchema = new Schema<IHackathon>(
   {
     hackathonName: {
       type: String,
+    },
+    mode: {
+      type: String,
+      enum: ["online", "inplace"]
     },
     tagline: {
       type: String
@@ -65,12 +69,12 @@ const hackathonSchema = new Schema<IHackathon>(
       type: Number,
     },
     criteria: {
-      type: [String],
+      type: String,
       required: true
     },
-    bannerImage: {
-      type: String
-    },
+    // bannerImage: {
+    //   type: String
+    // },
     organiserEmail: {
       type: String,
       required: true
@@ -86,7 +90,7 @@ const hackathonSchema = new Schema<IHackathon>(
     },
     status: {
       type: String,
-      enum: ["draft", "published", "closed"],
+      enum: ["draft", "published", "closed", "upcoming"],
       default: "draft",
     },
   },

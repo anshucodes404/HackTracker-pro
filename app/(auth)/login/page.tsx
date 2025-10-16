@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React, { useState } from "react";
 import VerifyOTP from "../verifyOTP/page";
@@ -43,7 +43,7 @@ const Page = () => {
           placeholder="Enter email"
           onChange={handleChange}
         />
-        <button onClick={handleSubmit}>Get OTP</button>
+        <button type="submit">Get OTP</button>
       </form>
       <VerifyOTP user={user} />
     </>

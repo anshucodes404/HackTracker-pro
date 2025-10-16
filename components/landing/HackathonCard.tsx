@@ -1,82 +1,70 @@
 import React from "react";
 import { Button } from "../ui";
 import Link from "next/link";
+import Image from "next/image";
+import { Award, Calendar, CalendarClock, Clock, Flag, Globe, Tags, Users } from "lucide-react";
 
 export interface HackathonCardProps {
-  title: string;
-  organizer: string;
-  date: string;
+  hackathonName: string;
+  mode: string;
+  tagline: string;
+  organiser: string;
   duration: string;
   teamSize: string;
-  registrationOpen: boolean;
+  startAt: string;
+  registrationDeadline: string;
   tags: string[];
   registeredTeams?: number;
   slug: string;
+  prize: string;
+  status: string;
+  bannerImage?: string;
 }
 
 const HackathonCard = ({
-  title,
-  organizer,
-  date,
+  hackathonName,
+  mode,
+  tagline,
+  organiser,
   duration,
   teamSize,
-  registrationOpen,
+  startAt,
+  registrationDeadline,
   tags,
   registeredTeams,
   slug,
+  prize,
+  status,
+  bannerImage,
 }: HackathonCardProps) => {
   return (
-    <div className="bg-card rounded-lg shadow-sm hover:shadow-md transition-shadow p-6 flex flex-col">
-      <div className="flex justify-between items-start mb-4">
+    <div className="bg-card rounded-lg shadow-sm hover:shadow-md p-6 grid grid-cols-[100px_2fr_1fr] h-52 max-w-5/6 border-gray-100">
+      <section className="border-r-2">
+        {bannerImage ? (
+          <Image src={bannerImage} alt="Banner" />
+        ) : (
+          <div>No banner</div>
+        )}
+      </section>
+      <section className="border-r-2 mx-2">
+        <h1 className="text-2xl font-bold">{hackathonName}</h1>
+        <p>{tagline}</p>
         <div>
-          <h3 className="font-bold text-xl mb-1">{title}</h3>
-          <p className="text-textSecondary text-sm">by {organizer}</p>
+          <span>{`• ${status}`}</span>
+          <span><Globe />{mode}</span>
         </div>
-        <span
-          className={`px-3 py-1 rounded-full text-xs ${
-            registrationOpen
-              ? "bg-success/10 text-success"
-              : "bg-danger/10 text-danger"
-          }`}
-        >
-          {registrationOpen ? "Registration Open" : "Registration Closed"}
-        </span>
-      </div>
-
-      <div className="space-y-2 mb-4">
-        <div className="flex items-center text-sm text-textSecondary">
-          <span className="mr-4">🗓 {date}</span>
-          <span>⏱ {duration}</span>
+        <div>
+          <span><Award />{`₹ ${prize}`}</span>
+          <span><Users />{`${registeredTeams} participants`}</span>
         </div>
-        <div className="flex items-center text-sm text-textSecondary">
-          <span className="mr-4">👥 {teamSize}</span>
-          {registeredTeams && (
-            <span>🏃‍♂️ {registeredTeams} teams registered</span>
-          )}
-        </div>
-      </div>
-
-      <div className="flex flex-wrap gap-2 mb-6">
-        {tags.map((tag) => (
-          <span
-            key={tag}
-            className="bg-background px-2 py-1 rounded text-xs text-textSecondary"
-          >
-            {tag}
-          </span>
-        ))}
-      </div>
-
-      <div className="mt-auto">
-        <Link href={`/hackathons/${slug}`}>
-          <Button
-            className="w-full"
-            variant={registrationOpen ? "primary" : "secondary"}
-          >
-            {registrationOpen ? "View Details & Register" : "View Details"}
-          </Button>
-        </Link>
-      </div>
+      </section>
+      <section>
+        <div ><Flag /><span>{organiser}</span></div>
+        <div><Calendar />{startAt}</div>
+        <div><CalendarClock />{registrationDeadline}</div>
+        <div><Clock />{duration}</div>
+        <div><Tags />{tags}</div>
+      </section>
     </div>
   );
 };

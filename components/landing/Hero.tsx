@@ -34,7 +34,7 @@ const Hero = () => {
             <Link href="/hackathons">
               <Button variant="primary">Explore Hackathons</Button>
             </Link>
-            <Link href="/host">
+            <Link href="/organise-hackathons">
               <Button variant="secondary">Host a Hackathon</Button>
             </Link>
           </div>
