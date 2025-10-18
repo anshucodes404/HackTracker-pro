@@ -1,56 +1,68 @@
 import dbConnect from "@/lib/dbConnect";
 import jwtDecode from "@/lib/jwtDecode";
-import { Hackathon } from "@/models/hackathon.model";
+// import { Hackathon } from "@/models/hackathon.model";
 import { ApiResponse } from "@/utils/ApiResponse";
 import { NextRequest, NextResponse } from "next/server";
-import { User } from "@/models/user.model";
+// import { User } from "@/models/user.model";
+import { Team } from "@/models/team.model";
 
+export async function POST(req: NextRequest) {
+  try {
+    await dbConnect();
 
-export async function POST(req: NextRequest){
-    
-    try {
-        await dbConnect()
+    const decodedUser = await (await jwtDecode(req)).json();
+    console.log(decodedUser);
 
-        const decodedUser = await (await jwtDecode(req)).json()
-        console.log(decodedUser)
+    const { name, hackathonId } = await req.json();
 
-        const {name, teamId} = await req.json()
-
-        if(!teamId){
-            return NextResponse.json(
-                new ApiResponse(false, "Team ID is missing"),
-                {status: 400}
-            ) 
-        }
-
-        console.log(name)
-        if(!name){
-            console.error("Team name is missing!!!")
-            return NextResponse.json(
-                new ApiResponse(false, "Team name is missing"),
-                {status: 400}
-            )
-        }
-
-        const hackathon = await Hackathon.findById(teamId)
-        const user = await User.findById(decodedUser._id)
-
-        console.log(hackathon)
-        console.log(user)
-
-
-
-
-
-
-        
-        
-    
-        return NextResponse.json(
-            new ApiResponse(true, "Team registered successfully"),
-            {status: 201}
-        )
-    } catch (error) {
-        
+    if (!hackathonId) {
+      return NextResponse.json(new ApiResponse(false, "Team ID is missing"), {
+        status: 400,
+      });
     }
+
+    console.log(name);
+    if (!name) {
+      console.error("Team name is missing!!!");
+      return NextResponse.json(new ApiResponse(false, "Team name is missing"), {
+        status: 400,
+      });
+    }
+
+    //? Be it commented for now will use later when to take all details of the team Members for then work with decoded data
+    // const user = await User.findById(decodedUser.data._id) as JwtPayload
+
+    const team = {
+      name,
+      hackathonId,
+      leader: decodedUser.data._id,
+      members: [
+        {
+          userId: decodedUser.data._id,
+          name: decodedUser.data.name,
+          collegeEmail: decodedUser.data.collegeEmail,
+          joinedAt: Date.now(),
+        },
+      ],
+    };
+
+    console.log(team.members);
+
+    const teamRegistered = await Team.create(team);
+
+    if (!teamRegistered) {
+      console.error("Team registration failed");
+      return NextResponse.json(
+        new ApiResponse(false, "Team registeration failed"),
+        { status: 500 }
+      );
+    }
+
+    return NextResponse.json(
+      new ApiResponse(true, "Team registered successfully", teamRegistered),
+      { status: 201 }
+    );
+  } catch (error) {
+    console.log(error);
+  }
 }

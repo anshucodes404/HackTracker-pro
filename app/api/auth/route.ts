@@ -98,6 +98,7 @@ export async function POST(req: Request) {
 
     const payload: jwt.JwtPayload = {
       _id: user?._id,
+      name: user?.name,
       collegeEmail: user?.collegeEmail,
     };
     const secret = process.env.JWT_TOKEN_SECRET as string;
@@ -106,9 +107,6 @@ export async function POST(req: Request) {
     };
 
     const token = jwt.sign(payload, secret, expiry);
-
-    user.token = token;
-    await user.save();
 
     const response = NextResponse.json(
       new ApiResponse(true, "Authentication successfull", user),

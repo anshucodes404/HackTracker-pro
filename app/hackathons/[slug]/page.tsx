@@ -189,7 +189,7 @@ export default function Page() {
         </div>
 
         <div>
-          <TeamRegister registrationDeadline={hackathon.registrationDeadline} teamId={slug as string} />
+          <TeamRegister registrationDeadline={hackathon.registrationDeadline} hackathonId={slug as string} />
         </div>
       </div>
     </div>
