@@ -90,7 +90,7 @@ const hackathonSchema = new Schema<IHackathon>(
     },
     status: {
       type: String,
-      enum: ["draft", "published", "closed", "upcoming"],
+      enum: ["draft", "published", "ended", "upcoming"],
       default: "draft",
     },
   },

@@ -1,34 +1,64 @@
+"use client";
 import Aside from "@/components/hackathons/Aside";
 import HackathonCard from "@/components/landing/HackathonCard";
-import React from "react";
+import { HackathonCardProps } from "@/types/types";
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
+const Page = () => {
+  useEffect(() => {
+    console.log("Hackathons page mounted");
+    (async () => {
+      await getHackathonInfos();
+    })();
+  }, []);
 
+  const [hackathons, setHackathons] = useState<HackathonCardProps[]>([]);
 
-const page = () => {
+  const router = useRouter();
 
-  const hackathon = {
-    hackathonName: "AI Hack 2025",
-    mode: "Online",
-    tagline: "Learn, Code and Win",
-    organiser: "IEEE Student Branch",
-    startAt: "Nov 1-3, 2025",
-    duration: "48 hours",
-    teamSize: "3-4 members",
-    registrationDeadline: "23-4-2025",
-    status: "upcoming",
-    tags: ["AI/ML", "Computer Vision", "NLP"],
-    registeredTeams: 45,
-    slug: "ai-hack-2025",
-    prize: "2500 Rs"
-  }
+  const redirectToDetailedPage = (_id: string) => {
+    if (!_id) return;
+    router.push(`/hackathons/${_id}`);
+  };
+
+  const getHackathonInfos = async () => {
+    try {
+      console.log("fetching hackathons...");
+      const raw = await fetch("/api/hackathons", { method: "GET" });
+      const res = await raw.json();
+      console.log("hackathons response:", res);
+      if (res && res.data) setHackathons(res.data as HackathonCardProps[]);
+    } catch (err) {
+      console.error("Error fetching hackathons:", err);
+    }
+  };
+
   return (
     <>
-      <div className="mt-16 grid grid-cols-[1fr_2fr]">
-        <Aside/>
-        <HackathonCard {...hackathon}/>
+      <div className="grid grid-cols-[1fr_2fr] h-screen ">
+        <Aside />
+
+        <div className="h-full overflow-y-auto pr-4 min-w-0 pt-12">
+          {!hackathons
+            ? "No Hackathons are open or Upcoming"
+            : hackathons.map((hackathon) => {
+                return (
+                  <div
+                    onClick={() =>
+                      redirectToDetailedPage(hackathon._id as string)
+                    }
+                    key={hackathon._id}
+                    className="cursor-pointer"
+                  >
+                    <HackathonCard {...hackathon} />
+                  </div>
+                );
+              })}
+        </div>
       </div>
     </>
   );
 };
 
-export default page;
+export default Page;

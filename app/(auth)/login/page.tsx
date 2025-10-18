@@ -35,7 +35,7 @@ const Page = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form className="mt-20" onSubmit={handleSubmit}>
         <input
           type="text"
           value={user.collegeEmail}

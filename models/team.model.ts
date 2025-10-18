@@ -12,7 +12,7 @@ export interface ITeam extends Document{
     members: ITeamMember[];
     hackathonId: mongoose.Types.ObjectId;
     leader: mongoose.Types.ObjectId;
-    status: "Forming" | "Registered" | "Disqualified" | "Won";
+    status: "Registered" | "Disqualified" | "Won";
     createdAt: Date;
     updatedAt: Date;
 }
@@ -51,8 +51,8 @@ export const teamSchema = new Schema<ITeam>({
     members: [teamMemberSchema],
     status:{
         type: String ,
-        enum: ["Forming", "Registered", "Disqualified", "Won"],
-        default: "Forming"
+        enum: ["Registered", "Disqualified", "Won"],
+        default: "Registered"
     }
 }, {timestamps: true})
 
