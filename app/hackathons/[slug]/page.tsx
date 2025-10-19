@@ -1,4 +1,4 @@
-// client component: fetches hackathon data on mount and guards UI while loading
+
 "use client";
 
 import React, { useEffect, useState } from "react";

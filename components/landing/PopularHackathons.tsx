@@ -5,6 +5,7 @@ import Link from "next/link";
 
 const upcomingHackathons = [
   {
+    _id: "jshduhreu",
     hackathonName: "AI Hack 2025",
     mode: "online",
     tagline: "Learn, Code and Win",
@@ -20,6 +21,7 @@ const upcomingHackathons = [
     prize: "2500 Rs"
   },
   {
+    _id: "jshduhreu",
     hackathonName: "WebDev Summit",
     mode: "In Place",
     tagline: "Learn, Code and Win",
@@ -35,6 +37,7 @@ const upcomingHackathons = [
     prize: "2500 Rs"
   },
   {
+    _id: "jshduhreu",
     hackathonName: "Blockchain Build",
     mode: "online",
     tagline: "Learn, Code and Win",
@@ -68,9 +71,9 @@ const PopularHackathons = () => {
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {upcomingHackathons.map((hackathon) => (
-            <HackathonCard key={hackathon.slug} {...hackathon} />
-          ))}
+          {/* {upcomingHackathons.map((hackathon) => (
+            // <HackathonCard key={hackathon.slug} {...hackathon} />
+          ))} */}
         </div>
       </div>
     </section>

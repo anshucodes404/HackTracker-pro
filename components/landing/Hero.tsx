@@ -42,7 +42,7 @@ const Hero = () => {
             <p className="text-sm text-textSecondary mb-4">
               🔥 Featured Hackathon
             </p>
-            <HackathonCard {...featuredHackathon} />
+            {/* <HackathonCard {...featuredHackathon} /> */}
           </div>
         </div>
         <div className="hidden lg:block">
