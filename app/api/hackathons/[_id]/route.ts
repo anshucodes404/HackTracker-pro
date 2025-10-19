@@ -3,14 +3,15 @@ import { Hackathon } from "@/models/hackathon.model";
 import { ApiResponse } from "@/utils/ApiResponse";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: NextRequest, {params}: {params: {_id: string}}){
+export async function GET(req: NextRequest, {params}: {params:Promise< {_id: string}>}){
     try {
+        const {_id} = await params
         console.log("Request received")
         await dbConnect()
         
-        const hackathon = await Hackathon.findById(params._id)
-        console.log(params)
-        console.log(params._id)
+        const hackathon = await Hackathon.findById(_id)
+        // console.log(params)
+        console.log(_id)
         if(!hackathon){
             console.error("No hackathon found")
             return NextResponse.json(

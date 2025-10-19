@@ -63,7 +63,7 @@ const Navbar = () => {
              <Link href={"/signup"}><Button className="cursor-pointer">Sign Up</Button></Link>
           </div>
         ) : (
-          <Avatar user={user.name} />
+          <Avatar user={(user as any)?.name ?? "Guest"} />
         )}
       </div>
     </>

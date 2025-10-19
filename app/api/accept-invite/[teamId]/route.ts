@@ -4,8 +4,9 @@ import jwtDecode from "@/lib/jwtDecode"
 import { ApiResponse } from "@/utils/ApiResponse";
 import { Team } from "@/models/team.model";
 
-export async function POST(req: NextRequest, {params}: {params: {teamId: string}}){
+export async function POST(req: NextRequest, {params}: {params:Promise<{teamId: string}>}){
     try {
+        const {teamId} = await params
         await dbConnect()
         const {data} = await (await jwtDecode(req)).json()
 
@@ -18,7 +19,7 @@ export async function POST(req: NextRequest, {params}: {params: {teamId: string}
             )
         }
 
-        if(!params.teamId){
+        if(!teamId){
             console.error("Team ID is missing")
             return NextResponse.json(
                 new ApiResponse(false, "Team ID is missing"),
@@ -33,7 +34,7 @@ export async function POST(req: NextRequest, {params}: {params: {teamId: string}
             joinedAt: Date.now
         }
 
-        const team = await Team.findByIdAndUpdate(params.teamId, 
+        const team = await Team.findByIdAndUpdate(teamId, 
             {
                 $push: {members: member}
             },
