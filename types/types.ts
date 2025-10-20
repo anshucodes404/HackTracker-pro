@@ -46,6 +46,7 @@ export interface HackathonCardProps {
   prize: string;
   status: string;
   bannerImage?: string;
+  btnText: string
 }
 
 export type DetailedHackathon = {

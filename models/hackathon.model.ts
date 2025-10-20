@@ -6,6 +6,7 @@ export interface IHackathon extends Document {
   tagline?: string;
   description: string;
   paricipants?: mongoose.Types.ObjectId[];
+  participantsEmails: string[];  //? team leaders email
   rules?: string;
   organiser: mongoose.Types.ObjectId;
   startAt: Date;
@@ -16,6 +17,7 @@ export interface IHackathon extends Document {
   criteria: string;
   // bannerImage?: string;
   organiserEmail: string;
+  OCEmails: string[];
   socialLink?: string;
   webSiteLink?: string;
   tags?: string[];
@@ -43,12 +45,17 @@ const hackathonSchema = new Schema<IHackathon>(
       type: [Schema.Types.ObjectId],
       ref: "Team",
     },
+    participantsEmails: {
+      type: [String],
+      required: true
+    },
     rules: {
       type: String,
     },
     organiser: {
       type: Schema.Types.ObjectId,
       ref: "User",
+      required: true,
     },
     startAt: {
       type: Date,
@@ -77,6 +84,10 @@ const hackathonSchema = new Schema<IHackathon>(
     // },
     organiserEmail: {
       type: String,
+      required: true
+    },
+    OCEmails: {
+      type: [String],
       required: true
     },
     socialLink: {

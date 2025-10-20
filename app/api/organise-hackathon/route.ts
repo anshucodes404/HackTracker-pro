@@ -1,4 +1,5 @@
 import dbConnect from "@/lib/dbConnect";
+import jwtDecode from "@/lib/jwtDecode";
 import { Hackathon } from "@/models/hackathon.model";
 import { ApiError } from "@/utils/ApiError";
 import { ApiResponse } from "@/utils/ApiResponse";
@@ -40,6 +41,9 @@ export async function POST(req: NextRequest) {
 
     console.log(parsedBody);
 
+    const {_id} = await(await jwtDecode(req)).json().then(res => res.data)
+    console.log(_id)
+
     const {
       hackathonName,
       tagline,
@@ -69,6 +73,7 @@ export async function POST(req: NextRequest) {
       rules,
       startAt,
       duration,
+      organiser: _id,
       registrationDeadline,
       minTeamSize,
       maxTeamSize,

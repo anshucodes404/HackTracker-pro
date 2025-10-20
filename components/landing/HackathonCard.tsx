@@ -30,6 +30,7 @@ const HackathonCard = ({
   prize,
   status,
   bannerImage,
+  btnText
 }: HackathonCardProps) => {
   return (
     <div className="bg-card rounded-lg text-sm shadow-sm hover:bg-slate-100/70 hover:shadow-md mt-8 p-6 grid grid-cols-[100px_2fr_1fr] h-52 max-w-5/6 border-gray-100">
@@ -64,7 +65,7 @@ const HackathonCard = ({
         </div>
 
         <div className="mr-10 mt-4">
-          <Button className="w-full">View and Register</Button>
+          <Button className="w-full">{btnText}</Button>
         </div>
       </section>
       <section>

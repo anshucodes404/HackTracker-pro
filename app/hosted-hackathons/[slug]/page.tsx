@@ -26,7 +26,7 @@ export default function Page() {
 
     const getHackathonData = async () => {
       try {
-        const res = await fetch(`/api/hackathons/${slug}`, {
+        const res = await fetch(`/api/hosted/${slug}`, {
           method: "GET",
         }).then((res) => res.json());
 
@@ -190,7 +190,6 @@ export default function Page() {
 
         <div>
           <SendMessagetoParticipants/>
-          {/* <TeamRegister registrationDeadline={hackathon.registrationDeadline} hackathonId={slug as string} /> */}
         </div>
       </div>
     </div>

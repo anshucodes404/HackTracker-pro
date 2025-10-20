@@ -25,10 +25,10 @@ import { NextResponse } from "next/server"
 //     __v: 0
 //   }
 
-export async function GET(req: Request){
+export async function GET(){
     console.log("Hackathon call recieved")
 await dbConnect()
-    const hackathons = await Hackathon.find({status: {$nin: ["ended","draft"]}}).select("-description -criteria -organiserEmail -socialLink -webSiteLink -createdAt -updatedAt -__v")
+    const hackathons = await Hackathon.find({status: {$nin: ["draft"]}}).select("-description -criteria -organiserEmail -socialLink -webSiteLink -createdAt -updatedAt -__v")
     console.log(hackathons)
     return NextResponse.json(
         new ApiResponse(true, "Hackathon call recieved", hackathons),

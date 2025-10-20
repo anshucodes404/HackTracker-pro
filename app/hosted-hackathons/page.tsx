@@ -19,13 +19,13 @@ const Page = () => {
 
   const redirectToDetailedPage = (_id: string) => {
     if (!_id) return;
-    router.push(`/hackathons/${_id}`);
+    router.push(`/hosted-hackathons/${_id}`);
   };
 
   const getHackathonInfos = async () => {
     try {
       console.log("fetching hackathons...");
-      const raw = await fetch("/api/hackathons", { method: "GET" });
+      const raw = await fetch("/api/hackathons/hosted", { method: "GET" });
       const res = await raw.json();
       console.log("hackathons response:", res);
       if (res && res.data) setHackathons(res.data as HackathonCardProps[]);
@@ -51,7 +51,7 @@ const Page = () => {
                     key={hackathon._id}
                     className="cursor-pointer"
                   >
-                    <HackathonCard {...hackathon} btnText="View and Register" />
+                    <HackathonCard {...hackathon} btnText="View Details" />
                   </div>
                 );
               })}
