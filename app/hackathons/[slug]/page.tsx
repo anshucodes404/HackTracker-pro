@@ -189,8 +189,8 @@ export default function Page() {
         </div>
 
         <div>
-          <SendMessagetoParticipants/>
-          {/* <TeamRegister registrationDeadline={hackathon.registrationDeadline} hackathonId={slug as string} /> */}
+          {/* <SendMessagetoParticipants/> */}
+          <TeamRegister registrationDeadline={hackathon.registrationDeadline} hackathonId={slug as string} />
         </div>
       </div>
     </div>

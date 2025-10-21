@@ -5,6 +5,7 @@ import { ApiResponse } from "@/utils/ApiResponse";
 import { NextRequest, NextResponse } from "next/server";
 // import { User } from "@/models/user.model";
 import { Team } from "@/models/team.model";
+import { Hackathon } from "@/models/hackathon.model";
 
 export async function POST(req: NextRequest) {
   try {
@@ -56,6 +57,18 @@ export async function POST(req: NextRequest) {
         new ApiResponse(false, "Team registeration failed"),
         { status: 500 }
       );
+    }
+
+    const hackathon = await Hackathon.findByIdAndUpdate(hackathonId, {
+      $push: {paricipants: teamRegistered._id, participantsEmails: decodedUser.data.collegeEmail}  //here participants is the team and the participants Email is the team lead college Email
+    })
+
+    if(!hackathon){
+      console.error("Team not registered")
+      return NextResponse.json(
+        new ApiResponse(false, "Team registeration failed"),
+        {status: 500}
+      )
     }
 
     return NextResponse.json(

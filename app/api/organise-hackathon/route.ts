@@ -10,9 +10,7 @@ const hackathonReqSchema = z.object({
   hackathonName: z.string(),
   tagline: z.string().optional(),
   description: z.string(),
-
   rules: z.string().optional(),
-
   startAt: z.coerce.date(),
   duration: z.string(),
   registrationDeadline: z.coerce.date(),
@@ -41,7 +39,7 @@ export async function POST(req: NextRequest) {
 
     console.log(parsedBody);
 
-    const {_id} = await(await jwtDecode(req)).json().then(res => res.data)
+    const {_id, collegeEmail} = await(await jwtDecode(req)).json().then(res => res.data)
     console.log(_id)
 
     const {
@@ -80,6 +78,7 @@ export async function POST(req: NextRequest) {
       criteria,
       bannerImage,
       organiserEmail,
+      OCEmails: collegeEmail,
       socialLink,
       webSiteLink,
       tags: tagArray,

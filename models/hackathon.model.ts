@@ -6,7 +6,7 @@ export interface IHackathon extends Document {
   tagline?: string;
   description: string;
   paricipants?: mongoose.Types.ObjectId[];
-  participantsEmails: string[];  //? team leaders email
+  participantsEmails?: string[];  //? team leaders email
   rules?: string;
   organiser: mongoose.Types.ObjectId;
   startAt: Date;
@@ -47,7 +47,6 @@ const hackathonSchema = new Schema<IHackathon>(
     },
     participantsEmails: {
       type: [String],
-      required: true
     },
     rules: {
       type: String,
