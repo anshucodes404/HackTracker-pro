@@ -13,6 +13,7 @@ import {
   Tags,
   Users,
 } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
 
 
 const HackathonCard = ({
@@ -32,6 +33,21 @@ const HackathonCard = ({
   bannerImage,
   btnText
 }: HackathonCardProps) => {
+
+  const router = useRouter()
+  const path = usePathname()
+
+    const redirectToDetailedPage = () => {
+    if (!_id) return;
+    
+    if(path == "/hackathons"){
+      router.push(`/hackathons/${_id}`);
+    } else {
+      router.push(`/hosted-hackathons/${_id}`)
+    }
+  };
+
+
   return (
     <div className="bg-card rounded-lg text-sm shadow-sm hover:bg-slate-100/70 hover:shadow-md mt-8 p-6 grid grid-cols-[100px_2fr_1fr] h-52 max-w-5/6 border-gray-100">
       <section className="md:block">
@@ -65,7 +81,7 @@ const HackathonCard = ({
         </div>
 
         <div className="mr-10 mt-4">
-          <Button className="w-full">{btnText}</Button>
+          <Button onClick={redirectToDetailedPage} className="w-full">{btnText}</Button>
         </div>
       </section>
       <section>

@@ -7,7 +7,14 @@ import { OTP } from "@/models/otp.model";
 import jwt, { SignOptions } from "jsonwebtoken";
 
 const logInSchema = z.object({
-  collegeEmail: z.email(),
+  collegeEmail: z
+    .string()
+    .trim()
+    .toLowerCase() 
+    .email({ message: "Invalid email format" })
+    .refine((e) => e.endsWith("@kiit.ac.in"), {
+      message: "Email must be a @kiit.ac.in address",
+    }),
   otp: z.string().length(6),
   mode: z.enum(["login", "signup"]),
 });
@@ -15,7 +22,14 @@ const logInSchema = z.object({
 const signUpSchema = z.object({
   name: z.string().min(2).max(50),
   githubUsername: z.string().optional(),
-  collegeEmail: z.email(),
+  collegeEmail: z
+    .string()
+    .trim()
+    .toLowerCase() 
+    .email({ message: "Invalid email format" })
+    .refine((e) => e.endsWith("@kiit.ac.in"), {
+      message: "Email must be a @kiit.ac.in address",
+    }),
   email: z.email(),
   otp: z.string().length(6),
   mode: z.enum(["login", "signup"]),
@@ -69,7 +83,7 @@ export async function POST(req: Request) {
         parsedBody.data;
 
       const otpDoc = await OTP.findOne({ collegeEmail });
-      console.log(otpDoc)
+      console.log(otpDoc);
 
       if (otp != otpDoc.otp) {
         return NextResponse.json(new ApiResponse(false, "OTP does not match"), {
@@ -77,14 +91,11 @@ export async function POST(req: Request) {
         });
       }
 
-      const rollno = parseInt(collegeEmail.split("@")[0]);
-
       user = await User.create({
         name,
         githubUsername,
         collegeEmail,
         email,
-        rollno,
       });
 
       if (!user) {

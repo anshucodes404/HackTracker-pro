@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useEffect, useState } from "react";
@@ -7,12 +6,11 @@ import { useParams } from "next/navigation";
 import { DetailedHackathon } from "@/types/types";
 import Image from "next/image";
 import Link from "next/link";
-import TeamRegister from "@/components/hackathons/TeamRegister";
-import SendMessagetoParticipants from "@/components/hackathons/SendMessagetoParticipants";
+import SendMessagetoParticipants from "@/components/hackathons/SendMessage";
 
 export default function Page() {
   const params = useParams();
-  const slug = params?.slug as string | undefined;
+  const slug = params?.slug as string;
   const [hackathon, setHackathon] = useState<DetailedHackathon | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -26,7 +24,7 @@ export default function Page() {
 
     const getHackathonData = async () => {
       try {
-        const res = await fetch(`/api/hosted/${slug}`, {
+        const res = await fetch(`/api/hackathons/hosted/${slug}`, {
           method: "GET",
         }).then((res) => res.json());
 
@@ -103,7 +101,7 @@ export default function Page() {
         <div className="flex items-center gap-2">
           <CalendarDays size={16} />{" "}
           <span>
-            {new Date(hackathon.startAt).toLocaleDateString()} — {" "}
+            {new Date(hackathon.startAt).toLocaleDateString()} —{" "}
             {hackathon.duration}
           </span>
         </div>
@@ -124,8 +122,8 @@ export default function Page() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-        <div className="md:col-span-2 space-y-8">
+      <div className="grid grid-cols-1 md:grid-cols-5 gap-10">
+        <div className="md:col-span-3 space-y-8">
           <section>
             <h2 className="text-xl font-semibold mb-2">About the Hackathon</h2>
             <p className="text-gray-700 leading-relaxed">
@@ -188,8 +186,8 @@ export default function Page() {
           </section>
         </div>
 
-        <div>
-          <SendMessagetoParticipants/>
+        <div className="md:col-span-2">
+          <SendMessagetoParticipants hackathonId={slug} />
         </div>
       </div>
     </div>

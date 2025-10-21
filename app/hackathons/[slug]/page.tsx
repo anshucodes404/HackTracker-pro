@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useEffect, useState } from "react";
@@ -8,11 +7,11 @@ import { DetailedHackathon } from "@/types/types";
 import Image from "next/image";
 import Link from "next/link";
 import TeamRegister from "@/components/hackathons/TeamRegister";
-import SendMessagetoParticipants from "@/components/hackathons/SendMessagetoParticipants";
+// import SendMessagetoParticipants from "@/components/hackathons/SendMessage";
 
 export default function Page() {
   const params = useParams();
-  const slug = params?.slug as string | undefined;
+  const slug = params?.slug as string;
   const [hackathon, setHackathon] = useState<DetailedHackathon | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -34,7 +33,7 @@ export default function Page() {
           setError("Hackathon not found");
           return;
         }
-
+console.log(res.data)
         setHackathon(res.data as DetailedHackathon);
       } catch (error) {
         setError((error as Error).message || String(error));
@@ -103,7 +102,7 @@ export default function Page() {
         <div className="flex items-center gap-2">
           <CalendarDays size={16} />{" "}
           <span>
-            {new Date(hackathon.startAt).toLocaleDateString()} — {" "}
+            {new Date(hackathon.startAt).toLocaleDateString()} —{" "}
             {hackathon.duration}
           </span>
         </div>
@@ -189,8 +188,11 @@ export default function Page() {
         </div>
 
         <div>
-          {/* <SendMessagetoParticipants/> */}
-          <TeamRegister registrationDeadline={hackathon.registrationDeadline} hackathonId={slug as string} />
+          {/* <SendMessagetoParticipants hackathonId={slug}/> */}
+          <TeamRegister
+            registrationDeadline={hackathon.registrationDeadline}
+            hackathonId={slug as string}
+          />
         </div>
       </div>
     </div>

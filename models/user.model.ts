@@ -5,7 +5,6 @@ export interface IUser extends Document {
   githubUsername?: string;
   collegeEmail: string;
   email: string;
-  rollno: number;
   token?: string;
   createdAt: Date;
   updatedAt: Date;
@@ -28,9 +27,6 @@ export const userSchema: Schema<IUser> = new Schema(
       type: String,
       required: true,
       unique: true,
-    },
-    rollno: {
-      type: Number,
     },
     token: {
       type: String,

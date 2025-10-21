@@ -122,8 +122,9 @@ export const sendMessageToOCs = async (
 
     await transporter.sendMail(mailOptions);
     console.log("Message sent successfully")
+    return true
   } catch (error) {
     console.error("Error sending email to OC members:", error);
-    
+    return false
   }
 };

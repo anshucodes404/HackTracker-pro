@@ -2,9 +2,9 @@
 import React, { useState } from "react";
 import { Button, Textarea } from "../ui";
 
-const SendMessagetoParticipants = () => {
+const SendMessage = ({hackathonId}: {hackathonId: string}) => {
   const [sendToParticipants, setSendToParticipants] = useState<boolean>(true);
-  const [msg, setMsg] = useState<string>("");
+  const [message, setMessage] = useState<string>("");
   const [sending, setSending] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
   const handleSubmit = async () => {
@@ -15,7 +15,7 @@ const SendMessagetoParticipants = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ msg, sendToParticipants }),
+        body: JSON.stringify({  message, sendToParticipants, hackathonId }),
       }).then((res) => res.json());
 
       console.log(res);
@@ -56,10 +56,11 @@ const SendMessagetoParticipants = () => {
           <Textarea
             label="Message"
             name="message"
-            value={msg}
-            onChange={(e) => setMsg(e.target.value)}
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
             required
             placeholder="Enter your message here ..."
+            className="h-40"
           />
         </div>
 
@@ -77,4 +78,4 @@ const SendMessagetoParticipants = () => {
   );
 };
 
-export default SendMessagetoParticipants;
+export default SendMessage;
