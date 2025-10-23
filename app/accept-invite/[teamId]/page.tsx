@@ -2,9 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
-
 async function fetchInviteDetails(teamId: string) {
-
   return {
     hackathonName: "HackHub Spring Challenge",
     hackathonDescription: "Build something amazing in 48 hours!",
@@ -19,7 +17,7 @@ async function fetchInviteDetails(teamId: string) {
     ],
   };
 }
- function Page({ params }: { params: { teamId: string } }) {
+function Page({ params }: { params: { teamId: string } }) {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [invite, setInvite] = useState<any>(null);
@@ -31,9 +29,9 @@ async function fetchInviteDetails(teamId: string) {
         const data = await fetchInviteDetails(params.teamId);
         setInvite(data);
       } catch (error) {
-        console.log(error)
+        console.log(error);
         setError("Invalid or expired invitation link.");
-      } finally {
+    } finally {
         setLoading(false);
       }
     }
@@ -120,4 +118,4 @@ async function fetchInviteDetails(teamId: string) {
   );
 }
 
-export default Page
+export default Page;
