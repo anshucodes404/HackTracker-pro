@@ -50,6 +50,7 @@ export interface HackathonCardProps {
 }
 
 export type DetailedHackathon = {
+  _id: string
   hackathonName: string;
   mode: "online" | "inplace";
   tagline?: string;

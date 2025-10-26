@@ -1,4 +1,5 @@
 import dbConnect from "@/lib/dbConnect";
+import jwtDecode from "@/lib/jwtDecode";
 import { Hackathon } from "@/models/hackathon.model";
 import { ApiResponse } from "@/utils/ApiResponse";
 import { NextRequest, NextResponse } from "next/server";
@@ -7,11 +8,10 @@ export async function GET(req: NextRequest, {params}: {params:Promise< {_id: str
     try {
         const {_id} = await params
         console.log("Request received")
+        const {collegeEmail} = await (await jwtDecode(req)).json().then(res => res.data)
         await dbConnect()
         
         const hackathon = await Hackathon.findById(_id)
-        // console.log(params)
-        console.log(_id)
         if(!hackathon){
             console.error("No hackathon found")
             return NextResponse.json(
@@ -20,8 +20,11 @@ export async function GET(req: NextRequest, {params}: {params:Promise< {_id: str
             )
         }
 
+        const registered = hackathon.participantsEmails?.includes(collegeEmail)
+
         return NextResponse.json(
-            new ApiResponse(true, "Hackathon corresponding the ID found", hackathon)
+            new ApiResponse(true, "Hackathon corresponding the ID found", {...hackathon.toObject(), registered}),
+            {status: 200},
         )
 
     } catch (error) {

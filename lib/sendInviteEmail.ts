@@ -11,7 +11,7 @@ const transporter = nodemailer.createTransport({
 });
 
 export const sendInviteEmail = async (
-  to: string,
+  to: string[],
   teamName: string,
   link: string,
   hackathonName: string,

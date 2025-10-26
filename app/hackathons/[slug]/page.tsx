@@ -7,6 +7,7 @@ import { DetailedHackathon } from "@/types/types";
 import Image from "next/image";
 import Link from "next/link";
 import TeamRegister from "@/components/hackathons/TeamRegister";
+import InviteForm from "@/components/hackathons/InviteForm";
 // import SendMessagetoParticipants from "@/components/hackathons/SendMessage";
 
 export default function Page() {
@@ -15,6 +16,7 @@ export default function Page() {
   const [hackathon, setHackathon] = useState<DetailedHackathon | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [registered, setRegistered] = useState<boolean>(false)
 
   useEffect(() => {
     if (!slug) {
@@ -33,7 +35,8 @@ export default function Page() {
           setError("Hackathon not found");
           return;
         }
-console.log(res.data)
+        console.log(res.data)
+        setRegistered(res.data.registered)
         setHackathon(res.data as DetailedHackathon);
       } catch (error) {
         setError((error as Error).message || String(error));
@@ -84,15 +87,14 @@ console.log(res.data)
           )}
         </div>
         <span
-          className={`px-4 py-1 rounded-full text-sm font-semibold ${
-            hackathon.status === "open"
+          className={`px-4 py-1 rounded-full text-sm font-semibold ${hackathon.status === "open"
               ? "bg-green-100 text-green-700"
               : hackathon.status === "upcoming"
-              ? "bg-yellow-100 text-yellow-700"
-              : hackathon.status === "ended"
-              ? "bg-red-100 text-red-700"
-              : "bg-gray-200 text-gray-700"
-          }`}
+                ? "bg-yellow-100 text-yellow-700"
+                : hackathon.status === "ended"
+                  ? "bg-red-100 text-red-700"
+                  : "bg-gray-200 text-gray-700"
+            }`}
         >
           {hackathon.status?.toUpperCase()}
         </span>
@@ -189,10 +191,13 @@ console.log(res.data)
 
         <div>
           {/* <SendMessagetoParticipants hackathonId={slug}/> */}
-          <TeamRegister
+          {
+            !registered ?  <TeamRegister
             registrationDeadline={hackathon.registrationDeadline}
             hackathonId={slug as string}
-          />
+          /> : <InviteForm hackathonId={hackathon._id} hackathonName={hackathon.hackathonName}/>
+          }
+         
         </div>
       </div>
     </div>
