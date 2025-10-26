@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { sendInviteEmail } from "@/lib/sendInviteEmail";
+import { sendInviteEmail } from "@/Emails/sendInviteEmail";
 import { ApiResponse } from "@/utils/ApiResponse";
 import jwtDecode from "@/lib/jwtDecode";
 import { Team } from "@/models/team.model";

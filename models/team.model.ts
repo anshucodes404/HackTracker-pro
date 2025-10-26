@@ -5,13 +5,13 @@ export interface ITeamMember {
   role: string;
   name: string;
   collegeEmail: string;
-  joinedAt: Date;
 }
 
 export interface ITeam extends Document {
   name: string;
   members: ITeamMember[];
   hackathonId: mongoose.Types.ObjectId;
+  hackathonName: string;
   leader: mongoose.Types.ObjectId;
   status: "Registered" | "Disqualified" | "Won";
   createdAt: Date;
@@ -36,11 +36,6 @@ const teamMemberSchema = new Schema<ITeamMember>({
     type: String,
     required: true,
   },
-  joinedAt: {
-    type: Date,
-    // use the Date.now function so the default is evaluated per-document
-    default: Date.now,
-  },
 });
 
 export const teamSchema = new Schema<ITeam>(
@@ -52,6 +47,10 @@ export const teamSchema = new Schema<ITeam>(
     hackathonId: {
       type: Schema.Types.ObjectId,
       ref: "Hackathon",
+      required: true,
+    },
+    hackathonName: {
+      type: String,
       required: true,
     },
     leader: {

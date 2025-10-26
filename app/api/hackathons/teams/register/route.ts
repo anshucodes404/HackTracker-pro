@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
     const decodedUser = await (await jwtDecode(req)).json();
     console.log(decodedUser);
 
-    const { name, hackathonId } = await req.json();
+    const { name, hackathonId, hackathonName } = await req.json();
 
     if (!hackathonId) {
       return NextResponse.json(new ApiResponse(false, "Team ID is missing"), {
@@ -31,15 +31,16 @@ export async function POST(req: NextRequest) {
     }
 
     //? Be it commented for now will use later when to take all details of the team Members for then work with decoded data
-    // const user = await User.findById(decodedUser.data._id) as JwtPayload
 
     const team = {
       name,
       hackathonId,
+      hackathonName,
       leader: decodedUser.data._id,
       members: [
         {
           userId: decodedUser.data._id,
+          role: "leader",
           name: decodedUser.data.name,
           collegeEmail: decodedUser.data.collegeEmail,
           joinedAt: Date.now(),

@@ -195,6 +195,7 @@ export default function Page() {
             !registered ?  <TeamRegister
             registrationDeadline={hackathon.registrationDeadline}
             hackathonId={slug as string}
+            hackathonName={hackathon.hackathonName}
           /> : <InviteForm hackathonId={hackathon._id} hackathonName={hackathon.hackathonName}/>
           }
          

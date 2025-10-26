@@ -1,8 +1,8 @@
 
 import dbConnect from "@/lib/dbConnect";
 import jwtDecode from "@/lib/jwtDecode";
-import { sendMessageToOCs } from "@/lib/sendMessageToOCs";
-import { sendMessageToTeamLeads } from "@/lib/sendMessageToTeamLeads";
+import { sendMessageToOCs } from "@/Emails/sendMessageToOCs";
+import { sendMessageToTeamLeads } from "@/Emails/sendMessageToTeamLeads";
 import { Hackathon } from "@/models/hackathon.model";
 import { ApiResponse } from "@/utils/ApiResponse";
 import { NextRequest, NextResponse } from "next/server";

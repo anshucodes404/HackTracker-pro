@@ -1,5 +1,5 @@
 import dbConnect from "@/lib/dbConnect";
-import { sendOTP } from "@/lib/sendOtpEmail";
+import { sendOTP } from "@/Emails/sendOtpEmail";
 import { OTP } from "@/models/otp.model";
 import { IUser, User } from "@/models/user.model";
 import { ApiResponse } from "@/utils/ApiResponse";

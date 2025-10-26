@@ -1,5 +1,5 @@
 import React, { KeyboardEvent, useState } from 'react'
-import { Button, Input } from '../ui'
+import { Button, Error, Input } from '../ui'
 import { SendHorizontal, X } from 'lucide-react'
 import { useToast } from '../ToastContext'
 
@@ -23,6 +23,7 @@ function TagsDisplay({ members, onRemove}: { members: string[], onRemove: (index
 
 const InviteForm = ({hackathonId, hackathonName}: {hackathonId: string, hackathonName: string}) => {
 
+    const [error, setError] = useState<string>("")
     const {addToast} = useToast()
     const [members, setMembers] = useState<string[]>([])
     const [member, setMember] = useState<string>("");
@@ -42,10 +43,16 @@ const InviteForm = ({hackathonId, hackathonName}: {hackathonId: string, hackatho
         console.log(res)
         if(res.success){
             addToast("Invite Sent Successfully ✅")
+            setMembers([])
+            setMember("")
+            return
         }
+
+        setError(res.message || "Failed to send invites")
     }
 
     const handleEnter = (e: KeyboardEvent) => {
+        setError("")
         if (e.key == "Enter") {
             e.preventDefault()
             handleMembers()
@@ -83,6 +90,8 @@ const InviteForm = ({hackathonId, hackathonName}: {hackathonId: string, hackatho
                     </div>
                 </div>
                 }
+
+                {error && <Error message={error} />}
 
                 <Button
                     type="submit"

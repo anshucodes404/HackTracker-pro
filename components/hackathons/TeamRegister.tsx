@@ -3,9 +3,10 @@ import { Button, Input } from "../ui";
 
 const TeamRegister = ({
   registrationDeadline,
-  hackathonId
+  hackathonId,
+  hackathonName
 }: {
-  registrationDeadline: Date, hackathonId: string
+  registrationDeadline: Date, hackathonId: string, hackathonName: string
 }) => {
 
     const [teamName, setTeamName] = useState<string>("")
@@ -15,7 +16,7 @@ const TeamRegister = ({
           const res = await fetch("/api/hackathons/teams/register", 
               {
                   method: "POST",
-                  body: JSON.stringify({name: teamName, hackathonId})
+                  body: JSON.stringify({name: teamName, hackathonId, hackathonName})
               }
           ).then(res => res.json())
   

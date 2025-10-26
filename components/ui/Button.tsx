@@ -11,7 +11,7 @@ const Button: React.FC<ButtonProps> = ({
   className,
   ...props
 }) => {
-  const base = "px-4 py-2 rounded font-semibold transition-colors";
+  const base = "px-4 py-2 rounded-lg font-semibold transition-colors";
   
   const variants: Record<string, string> = {
     primary: "bg-blue-600 text-white hover:bg-blue-700",

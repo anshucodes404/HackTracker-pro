@@ -1,6 +1,9 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { ExternalLink } from "lucide-react";
+import { useToast } from "@/components/ToastContext";
+import { Button } from "@/components/ui";
 
 async function fetchInviteDetails(teamId: string) {
   return {
@@ -18,11 +21,11 @@ async function fetchInviteDetails(teamId: string) {
   };
 }
 function Page({ params }: { params: { teamId: string } }) {
+  const {addToast} = useToast()
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [invite, setInvite] = useState<any>(null);
   const [error, setError] = useState("");
-
   useEffect(() => {
     async function load() {
       try {
@@ -38,15 +41,26 @@ function Page({ params }: { params: { teamId: string } }) {
     load();
   }, [params.teamId]);
 
-  const handleAccept = () => {
-    // TODO: Call accept API, then redirect
-    alert("Invitation accepted!");
-    router.push("/dashboard");
+  console.log("TeamId: ", params.teamId)
+
+  const handleAccept = async () => {
+     const res = await fetch(`/api/accept-decline-invite/${params.teamId}`, {
+      method: "POST",
+      body: JSON.stringify({action: "accept"})
+    }).then(res => res.json())
+    if(res.success){
+      addToast("Invitation accepted!");
+      router.push("/hackathons");
+      
+    }
   };
 
-  const handleDecline = () => {
-    // TODO: Call decline API, then redirect
-    alert("Invitation declined.");
+  const handleDecline = async () => {
+    const res = await fetch(`/api/accept-decline-invite/${params.teamId}`, {
+      method: "POST",
+      body: JSON.stringify({action: "decline"})
+    }).then(res => res.json())
+    addToast("Invitation declined.");
     router.push("/");
   };
 
@@ -64,8 +78,9 @@ function Page({ params }: { params: { teamId: string } }) {
     );
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-indigo-100 to-white">
-      <div className="w-full max-w-md bg-white rounded-xl shadow-lg p-8 mx-4">
+    <div className="flex items-center justify-center min-h-screen">
+      <div className="w-full max-w-md bg-white shadow-2xl rounded-xl border border-slate-200 p-8 mx-4 relative">
+      <ExternalLink className="absolute right-4 top-4 cursor-pointer" />
         <h1 className="text-2xl font-bold text-indigo-700 mb-2 text-center">
           {invite.hackathonName}
         </h1>
@@ -100,18 +115,19 @@ function Page({ params }: { params: { teamId: string } }) {
           </ul>
         </div>
         <div className="flex gap-4 mt-6">
-          <button
-            className="flex-1 py-2 px-4 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700 transition"
+          <Button
+            className="flex-1"
             onClick={handleAccept}
           >
             Accept Invitation
-          </button>
-          <button
-            className="flex-1 py-2 px-4 bg-gray-200 text-gray-700 rounded-lg font-semibold hover:bg-gray-300 transition"
+          </Button>
+          <Button
+            className="flex-1"
+            variant="danger"
             onClick={handleDecline}
           >
             Decline
-          </button>
+          </Button>
         </div>
       </div>
     </div>
