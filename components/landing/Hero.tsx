@@ -51,8 +51,8 @@ const Hero = () => {
             <div className="absolute -bottom-8 -right-8 w-32 h-32 bg-primary/10 rounded-full blur-xl"></div>
             <Image
               width={1920}
-              height={500}
-              src={"/satoru.png"}
+              height={800}
+              src={"/landing.png"}
               alt="Hackathon Illustration"
               className="relative z-10 w-full max-w-lg mx-auto"
             />

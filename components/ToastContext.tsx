@@ -40,14 +40,12 @@ export const ToastProvider: React.FC<{ children: ReactNode }> = ({ children }) =
 
   const addToast = useCallback((message: string) => {
     const newToast = { id: ++toastId, message };
-    // new toasts appear at the top
     setToasts((prev) => [newToast, ...prev]);
   }, []);
 
   return (
     <ToastContext.Provider value={{ addToast }}>
       {children}
-      {/* Toast Container */}
       <div className="fixed top-4 left-1/2 -translate-x-1/2 z-50 flex flex-col-reverse items-center space-y-reverse space-y-3">
         <AnimatePresence initial={false}>
           {toasts.map((toast) => (

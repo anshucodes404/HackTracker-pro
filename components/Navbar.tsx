@@ -60,7 +60,7 @@ const Navbar = () => {
         {!user ? (
           <div className="flex gap-4 mr-16">
             <Link href={"/login"}><Button className="cursor-pointer">Log In</Button></Link>
-             <Link href={"/signup"}><Button className="cursor-pointer">Sign Up</Button></Link>
+             <Link href={"/signup"}><Button variant="secondary" className="cursor-pointer">Sign Up</Button></Link>
           </div>
         ) : (
           <Avatar user={(user as any)?.name ?? "Guest"} />

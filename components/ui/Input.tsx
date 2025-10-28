@@ -12,7 +12,7 @@ const Input: React.FC<InputProps> = ({ label, className, ...props }) => {
       {label && <label className="text-sm font-medium text-gray-700 mb-1">{label}</label>}
       <input
         className={clsx(
-          "border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500",
+          "border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500",
           className
         )}
         {...props}

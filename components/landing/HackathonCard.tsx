@@ -49,7 +49,7 @@ const HackathonCard = ({
 
 
   return (
-    <div className="bg-card rounded-lg text-sm shadow-sm hover:bg-slate-100/70 hover:shadow-md mt-8 p-6 grid grid-cols-[100px_2fr_1fr] h-52 max-w-5/6 border-gray-100">
+    <div className="bg-card rounded-lg text-sm shadow-sm hover:bg-slate-100/70 hover:shadow-md mt-8 p-6 grid grid-cols-[100px_2fr_1fr] h-52 max-w-5/6 border-gray-100 overflow-y-hidden">
       <section className="md:block">
         {bannerImage ? (
           <Image src={bannerImage} alt="Banner" />
@@ -101,7 +101,7 @@ const HackathonCard = ({
           <Clock className="size-4" />
           {duration}
         </div>
-        <div className="flex gap-2 mt-2 items-center">
+        <div className="flex gap-2 mt-2 items-center flex-wrap">
           <Tags className="size-4" />
           {tags.map((tag, index) => {
             return (<div key={index}>{TagsList(tag)}</div> )
