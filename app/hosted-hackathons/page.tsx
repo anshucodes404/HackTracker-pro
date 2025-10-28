@@ -1,11 +1,16 @@
 "use client";
 import Aside from "@/components/hackathons/Aside";
 import HackathonCard from "@/components/landing/HackathonCard";
+import Loader from "@/components/ui/Loader";
 import { HackathonCardProps } from "@/types/types";
 import React, { useEffect, useState } from "react";
 
 
 const Page = () => {
+
+
+  const [isGettingInfo, setIsGettingInfo] = useState<boolean>(false)
+
   useEffect(() => {
     console.log("Hackathons page mounted");
     (async () => {
@@ -20,6 +25,7 @@ const Page = () => {
 
   const getHackathonInfos = async () => {
     try {
+      setIsGettingInfo(true)
       console.log("fetching hackathons...");
       const raw = await fetch("/api/hackathons/hosted", { method: "GET" });
       const res = await raw.json();
@@ -27,8 +33,14 @@ const Page = () => {
       if (res && res.data) setHackathons(res.data as HackathonCardProps[]);
     } catch (err) {
       console.error("Error fetching hackathons:", err);
+    } finally{
+      setIsGettingInfo(false)
     }
   };
+
+  if(isGettingInfo){
+    return <Loader fullscreen/>
+  }
 
   return (
     <>

@@ -2,6 +2,7 @@ import { LogOut, Lightbulb, Rocket, User } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useUser } from "./UserContext";
 
 interface AvatarProps {
   imageUrl?: string;
@@ -10,6 +11,7 @@ interface AvatarProps {
 
 const Avatar: React.FC<AvatarProps> = ({ user = "User" }) => {
   const router = useRouter();
+  const {setUser} = useUser()
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -74,7 +76,7 @@ const Avatar: React.FC<AvatarProps> = ({ user = "User" }) => {
                   method: "POST",
                 }).then((res) => res.json());
                 if (res.success) {
-                  router.refresh();
+                  setUser(null)
                   router.push("/");
                 }
               }}

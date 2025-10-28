@@ -2,14 +2,19 @@
 "use client";
 import React, { useState } from "react";
 import { Input, Section, Textarea, Button } from "@/components/ui";
+import Loader from "@/components/ui/Loader";
+import { useToast } from "@/components/ToastContext";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
 
+ const router =  useRouter()
+  const {addToast} = useToast()
   const [submitting, setSubmitting] = useState<boolean>(false)
   const [uploading, setUploading] = useState<boolean>(false)
   // let bannerURL: string | undefined = undefined;
   const [error, setError] = useState<string>("")
-
+ const [isCreating, setIsCreating] = useState<boolean>(false)
   const CLOUD_NAME = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
 
   // const uploadImage = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -68,20 +73,40 @@ export default function Page() {
   // };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    for (const [key, value] of formData.entries()) {
-      console.log(key, ": ", value);
-    }
-
-    const res = await fetch("/api/organise-hackathon",
-      {
-        method: "POST",
-        body: formData
+    try {
+      addToast("Creating Hackahthon")
+      setIsCreating(true)
+      e.preventDefault();
+      const formData = new FormData(e.currentTarget);
+      for (const [key, value] of formData.entries()) {
+        console.log(key, ": ", value);
       }
-    ).then(res => res.json())
-    console.log(res)
+  
+      const res = await fetch("/api/organise-hackathon",
+        {
+          method: "POST",
+          body: formData
+        }
+      ).then(res => res.json())
+      console.log(res)
+      if(!res?.success){
+        addToast("Hackathon creation failed")
+      } else {
+        addToast("Hackathon Created Successfully")
+        router.push("/hosted-hackathons")
+      }
+
+    } catch (error) {
+      addToast("Creation failed")
+    } finally {
+      setIsCreating(false)
+    }
   };
+
+
+  if(isCreating){
+    return <Loader fullscreen/>
+  }
 
   return (
     <>
@@ -205,7 +230,7 @@ export default function Page() {
               type="submit"
               className="bg-blue-600 text-white font-medium px-6 py-2 rounded-md hover:bg-blue-700 transition"
             >
-              Create Hackathon
+                Ceate Hackathon
             </Button>
           </div>
         </div>

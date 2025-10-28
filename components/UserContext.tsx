@@ -2,6 +2,9 @@
 
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
+import Loader from "./ui/Loader";
+
 
 interface UserData {
     _id: string;
@@ -43,6 +46,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
             const data = await res.json();
             if (data?.success) {
                 setUser(data.data as UserData);
+               
             } else {
                 setUser(null);
                 router.push("/signup")
@@ -58,6 +62,12 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     useEffect(() => {
         refreshUser();
     }, []);
+
+    if(isUserLoading){
+        return (
+           <Loader fullscreen/>
+        )
+    }
 
     return (
         <UserContext.Provider value={{ user, setUser, refreshUser, isUserLoading }}>

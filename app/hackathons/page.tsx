@@ -4,6 +4,7 @@ import HackathonCard from "@/components/landing/HackathonCard";
 import { HackathonCardProps } from "@/types/types";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import Loader from "@/components/ui/Loader";
 
 const Page = () => {
   useEffect(() => {
@@ -12,6 +13,8 @@ const Page = () => {
       await getHackathonInfos();
     })();
   }, []);
+
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const [hackathons, setHackathons] = useState<HackathonCardProps[]>([]);
 
@@ -24,6 +27,7 @@ const Page = () => {
 
   const getHackathonInfos = async () => {
     try {
+      setIsLoading(true)
       console.log("fetching hackathons...");
       const raw = await fetch("/api/hackathons", { method: "GET" });
       const res = await raw.json();
@@ -31,8 +35,14 @@ const Page = () => {
       if (res && res.data) setHackathons(res.data as HackathonCardProps[]);
     } catch (err) {
       console.error("Error fetching hackathons:", err);
+    } finally{
+      setIsLoading(false)
     }
   };
+
+  if(isLoading){
+    return <Loader fullscreen/>
+  }
 
   return (
     <>

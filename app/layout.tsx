@@ -33,10 +33,10 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <UserProvider>
-        <ToastProvider>
-          <Navbar />
-          {children}
-        </ToastProvider>
+          <ToastProvider>
+            <Navbar />
+            {children}
+          </ToastProvider>
         </UserProvider>
       </body>
     </html>
