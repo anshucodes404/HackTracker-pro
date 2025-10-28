@@ -61,7 +61,7 @@ export async function POST(req: NextRequest) {
     }
 
     const hackathon = await Hackathon.findByIdAndUpdate(hackathonId, {
-      $push: {paricipants: teamRegistered._id, participantsEmails: decodedUser.data.collegeEmail}  //here participants is the team and the participants Email is the team lead college Email
+      $push: {participants: teamRegistered._id, participantsEmails: decodedUser.data.collegeEmail}  //here participants is the team and the participants Email is the team lead college Email
     })
 
     if(!hackathon){

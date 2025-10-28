@@ -39,7 +39,7 @@ export async function POST(req: NextRequest) {
 
     console.log(parsedBody);
 
-    const {_id, collegeEmail} = await(await jwtDecode(req)).json().then(res => res.data)
+    const {_id, collegeEmail, name} = await(await jwtDecode(req)).json().then(res => res.data)
     console.log(_id)
 
     const {
@@ -72,6 +72,7 @@ export async function POST(req: NextRequest) {
       startAt,
       duration,
       organiser: _id,
+      organiserName: name,
       registrationDeadline,
       minTeamSize,
       maxTeamSize,

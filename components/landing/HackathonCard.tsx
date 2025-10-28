@@ -21,13 +21,14 @@ const HackathonCard = ({
   hackathonName,
   mode,
   tagline,
-  organiser,
+  organiserName,
   duration,
-  teamSize,
+  minTeamSize,
+  maxTeamSize,
   startAt,
   registrationDeadline,
   tags,
-  registeredTeams,
+  participants,
   prize,
   status,
   bannerImage,
@@ -75,7 +76,7 @@ const HackathonCard = ({
             </span>
             <span className="flex gap-2 mt-2 items-center">
               <Users className="size-4" />
-              {`${registeredTeams} participants`}
+              {`${participants?.length} Teams`}
             </span>
           </div>
         </div>
@@ -87,15 +88,15 @@ const HackathonCard = ({
       <section className="hidden lg:block">
         <div className="flex gap-2 mt-2 items-center">
           <Flag className="size-4" />
-          <span>{organiser}</span>
+          <span>{organiserName}</span>
         </div>
         <div className="flex gap-2 mt-2 items-center">
           <Calendar className="size-4" />
-          {startAt.toString()}
+          {new Date(startAt).toLocaleDateString()}
         </div>
         <div className="flex gap-2 mt-2 items-center">
           <CalendarClock className="size-4" />
-          {registrationDeadline.toString()}
+          {new Date(registrationDeadline).toLocaleDateString()}
         </div>
         <div className="flex gap-2 mt-2 items-center">
           <Clock className="size-4" />

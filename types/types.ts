@@ -47,13 +47,14 @@ export interface HackathonCardProps {
   hackathonName: string;
   mode: string;
   tagline: string;
-  organiser: string;
+  organiserName: string;
   duration: string;
-  teamSize: string;
+  minTeamSize: number;
+  maxTeamSize: number;
   startAt: Date;
   registrationDeadline: Date;
   tags: string[];
-  registeredTeams?: number;
+  participants?: string[];
   slug: string;
   prize: string;
   status: string;

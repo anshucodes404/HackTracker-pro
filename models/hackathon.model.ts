@@ -5,10 +5,11 @@ export interface IHackathon extends Document {
   mode: "online" | "inplace";
   tagline?: string;
   description: string;
-  paricipants?: mongoose.Types.ObjectId[];
+  participants?: mongoose.Types.ObjectId[];
   participantsEmails?: string[];  //? team leaders email
   rules?: string;
   organiser: mongoose.Types.ObjectId;
+  organiserName: string;
   startAt: Date;
   duration: string;
   registrationDeadline: Date;
@@ -33,7 +34,8 @@ const hackathonSchema = new Schema<IHackathon>(
     },
     mode: {
       type: String,
-      enum: ["online", "inplace"]
+      enum: ["online", "inplace"],
+      default: "online"
     },
     tagline: {
       type: String
@@ -41,7 +43,7 @@ const hackathonSchema = new Schema<IHackathon>(
     description: {
       type: String,
     },
-    paricipants: {
+    participants: {
       type: [Schema.Types.ObjectId],
       ref: "Team",
     },
@@ -55,6 +57,10 @@ const hackathonSchema = new Schema<IHackathon>(
       type: Schema.Types.ObjectId,
       ref: "User",
       required: true,
+    },
+    organiserName: {
+      type: String,
+      required: true
     },
     startAt: {
       type: Date,
