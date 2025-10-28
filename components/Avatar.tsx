@@ -55,7 +55,7 @@ const Avatar: React.FC<AvatarProps> = ({ user = "User" }) => {
             </Link>
 
             <Link
-              href="/hackathons-participated"
+              href="/participated-hackathons"
               className="flex items-center w-full rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
             >
               <Lightbulb className="w-4 h-4 mr-2" />

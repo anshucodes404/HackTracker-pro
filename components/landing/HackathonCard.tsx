@@ -49,8 +49,8 @@ const HackathonCard = ({
 
 
   return (
-    <div className="bg-card rounded-lg text-sm shadow-sm hover:bg-slate-100/70 hover:shadow-md mt-8 p-6 grid grid-cols-[100px_2fr_1fr] h-52 max-w-5/6 border-gray-100 overflow-y-hidden">
-      <section className="md:block">
+    <div className=" rounded-lg text-sm shadow-md hover:bg-gray-200/80 hover:shadow-md mt-8 p-6 grid grid-cols-1 lg:grid-cols-[100px_2fr_1fr] h-52 max-w-5/6 border-gray-300 overflow-y-hidden ">
+      <section className="lg:block hidden">
         {bannerImage ? (
           <Image src={bannerImage} alt="Banner" />
         ) : (
@@ -81,10 +81,10 @@ const HackathonCard = ({
         </div>
 
         <div className="mr-10 mt-4">
-          <Button onClick={redirectToDetailedPage} className="w-full">{btnText}</Button>
+          <Button onClick={redirectToDetailedPage} className="w-full cursor-pointer">{btnText}</Button>
         </div>
       </section>
-      <section>
+      <section className="hidden lg:block">
         <div className="flex gap-2 mt-2 items-center">
           <Flag className="size-4" />
           <span>{organiser}</span>

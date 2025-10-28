@@ -21,7 +21,7 @@ export interface IHackathon extends Document {
   socialLink?: string;
   webSiteLink?: string;
   tags?: string[];
-  status: "draft" | "open" | "ended" | "upcoming";
+  status: "draft" | "published" | "ended" | "upcoming";
   createdAt: Date;
   updatedAt: Date;
 }
@@ -101,7 +101,7 @@ const hackathonSchema = new Schema<IHackathon>(
     status: {
       type: String,
       enum: ["draft", "published", "ended", "upcoming"],
-      default: "draft",
+      default: "published",
     },
   },
   { timestamps: true }

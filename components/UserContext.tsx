@@ -9,9 +9,14 @@ import Loader from "./ui/Loader";
 interface UserData {
     _id: string;
     name: string;
-    collegeEmail: string;
-    email: string;
-    githubUsername?: string;
+    collegeEmail: string,
+    email: string,
+    hostelEmail: string,
+    branch: string,
+    hostel: string,
+    studyYear: string,
+    githubLink?: string,
+    LinkedInLink?: string,
     createdAt: string;
     updatedAt: string;
 }
@@ -46,7 +51,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
             const data = await res.json();
             if (data?.success) {
                 setUser(data.data as UserData);
-               
+
             } else {
                 setUser(null);
                 router.push("/signup")
@@ -63,9 +68,9 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         refreshUser();
     }, []);
 
-    if(isUserLoading){
+    if (isUserLoading) {
         return (
-           <Loader fullscreen/>
+            <Loader fullscreen />
         )
     }
 

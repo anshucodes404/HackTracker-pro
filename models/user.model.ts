@@ -1,11 +1,16 @@
 import mongoose, { Schema, Document } from "mongoose";
 
 export interface IUser extends Document {
-  name: string;
-  githubUsername?: string;
-  collegeEmail: string;
-  email: string;
-  token?: string;
+  name: string,
+  mobileNumber: number,
+  collegeEmail: string,
+  email: string,
+  hostelEmail: string,
+  branch: string,
+  hostel: string,
+  studyYear: string,
+  githubLink: string,
+  LinkedInLink: string,
   createdAt: Date;
   updatedAt: Date;
 }
@@ -16,22 +21,42 @@ export const userSchema: Schema<IUser> = new Schema(
       type: String,
       required: true
     },
-    githubUsername: {
-      type: String,
+    mobileNumber: {
+      type: Number,
+      required: true
     },
     collegeEmail: {
       type: String,
-      required: true
+      required: true,
+      unique: true
     },
     email: {
       type: String,
       required: true,
       unique: true,
     },
-    token: {
+    hostelEmail: {
       type: String,
-      
+      required: true
     },
+    branch: {
+      type: String,
+      required: true
+    },
+    hostel: {
+      type: String,
+      required: true
+    },
+    studyYear: {
+      type: String,
+      required: true
+    },
+    githubLink: {
+      type: String,
+    },
+    LinkedInLink: {
+      type: String
+    }
   },
   { timestamps: true }
 );

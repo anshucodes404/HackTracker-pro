@@ -10,7 +10,7 @@ const logInSchema = z.object({
   collegeEmail: z
     .string()
     .trim()
-    .toLowerCase() 
+    .toLowerCase()
     .email({ message: "Invalid email format" })
     .refine((e) => e.endsWith("@kiit.ac.in"), {
       message: "Email must be a @kiit.ac.in address",
@@ -21,11 +21,24 @@ const logInSchema = z.object({
 
 const signUpSchema = z.object({
   name: z.string().min(2).max(50),
-  githubUsername: z.string().optional(),
+  mobileNumber: z.coerce.number(),
+  hostelEmail: z
+    .string()
+    .trim()
+    .toLowerCase()
+    .email({ message: "Invalid email format" })
+    .refine((e) => e.endsWith("@kiit.ac.in"), {
+      message: "Hostel Email must be a @kiit.ac.in address",
+    }),
+  branch: z.string(),
+  hostel: z.string(),
+  studyYear: z.string(),
+  githubLink: z.string().optional(),
+  LinkedInLink: z.string().optional(),
   collegeEmail: z
     .string()
     .trim()
-    .toLowerCase() 
+    .toLowerCase()
     .email({ message: "Invalid email format" })
     .refine((e) => e.endsWith("@kiit.ac.in"), {
       message: "Email must be a @kiit.ac.in address",
@@ -79,7 +92,7 @@ export async function POST(req: Request) {
         );
       }
 
-      const { name, collegeEmail, email, githubUsername, otp } =
+      const { name, collegeEmail, email, otp, mobileNumber, hostelEmail, branch, hostel, studyYear, githubLink, LinkedInLink } =
         parsedBody.data;
 
       const otpDoc = await OTP.findOne({ collegeEmail });
@@ -93,7 +106,13 @@ export async function POST(req: Request) {
 
       user = await User.create({
         name,
-        githubUsername,
+        mobileNumber: Number(mobileNumber),
+        hostelEmail,
+        hostel,
+        branch,
+        studyYear,
+        githubLink,
+        LinkedInLink,
         collegeEmail,
         email,
       });

@@ -1,5 +1,5 @@
 import Lottie from "lottie-react";
-import animationData from "@/public/animations/loading.json"
+import animationData from "@/public/Loading/loading.json"
 
 interface LoaderProps {
     fullscreen?: boolean;

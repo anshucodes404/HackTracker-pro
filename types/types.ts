@@ -1,9 +1,15 @@
 export type signInuserObjectType = {
-  name: string;
-  collegeEmail: string;
-  email: string;
-  githubUsername: string;
-  mode: string;
+  name: string,
+  mobileNumber: string,
+  collegeEmail: string,
+  email: string,
+  hostelEmail: string,
+  branch: string,
+  hostel: string,
+  studyYear: string,
+  githubLink?: string,
+  LinkedInLink?: string,
+  mode: string,
 };
 
 export type logInuserObjectType = {
@@ -18,11 +24,17 @@ export type loginUser = {
 };
 
 export type signupUser = {
-  name: string;
-  collegeEmail: string;
-  email: string;
-  githubUsername: string;
-  mode: string;
+  name: string,
+  mobileNumber: string,
+  collegeEmail: string,
+  email: string,
+  hostelEmail: string,
+  branch: string,
+  hostel: string,
+  studyYear: string,
+  githubLink?: string,
+  LinkedInLink?: string,
+  mode: string,
   otp: string;
 };
 

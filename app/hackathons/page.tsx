@@ -20,11 +20,7 @@ const Page = () => {
 
   const router = useRouter();
 
-  const redirectToDetailedPage = (_id: string) => {
-    if (!_id) return;
-    router.push(`/hackathons/${_id}`);
-  };
-
+ 
   const getHackathonInfos = async () => {
     try {
       setIsLoading(true)
@@ -55,11 +51,8 @@ const Page = () => {
             : hackathons.map((hackathon) => {
                 return (
                   <div
-                    onClick={() =>
-                      redirectToDetailedPage(hackathon._id as string)
-                    }
                     key={hackathon._id}
-                    className="cursor-pointer"
+                    
                   >
                     <HackathonCard {...hackathon} btnText="View and Register" />
                   </div>
