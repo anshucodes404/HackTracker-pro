@@ -4,28 +4,6 @@ import { ApiResponse } from "@/utils/ApiResponse";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
-//  {
-//     _id: new ObjectId('68f073ad14b6abe6d785bfda'),
-//     hackathonName: 'jhdbfjvhdjh',
-//     tagline: 'jhdfhvdery',
-//     description: 'hvhdrgfhegr',
-//     paricipants: [],
-//     startAt: 2025-10-18T04:24:00.000Z,
-//     duration: '23hr',
-//     registrationDeadline: 2025-10-31T00:00:00.000Z,
-//     minTeamSize: 4,
-//     maxTeamSize: 6,
-//     criteria: 'edrget',
-//     organiserEmail: 'jeurygueyr@gmail.com',
-//     socialLink: 'mjsndvjkdsj',
-//     webSiteLink: 'jhbdjsrfjer',
-//     tags: [ 'vhdjrfgjyger', ' hdfjhgedr', ' bdhfbjder', ' jdbfjhd' ],
-//     status: 'published',
-//     createdAt: 2025-10-16T04:25:17.779Z,
-//     updatedAt: 2025-10-16T04:25:17.779Z,
-//     __v: 0
-//   }
-
 export async function GET(req: NextRequest) {
 	try {
 		const searchParams = req.nextUrl.searchParams;
@@ -44,18 +22,22 @@ export async function GET(req: NextRequest) {
 		}
 
 		if (status && status.length > 0) {
-			query.status = { $in: status, $nin: ["draft"] };
+			query.status = { $in: status };
+		} else {
+			query.status = { $ne: "draft" };
 		}
 
-        if(tags && tags.length > 0){
-            query.tags = { $in : tags}
-        }
+		if (tags && tags.length > 0) {
+			query.tags = { $in: tags };
+		}
 
 		console.log("Hackathon call recieved");
 		await dbConnect();
-		const hackathons = await Hackathon.find(query).sort({createdAt: -1}).select(
-			"-description -criteria -organiserEmail -socialLink -webSiteLink -createdAt -updatedAt -__v",
-		);
+		const hackathons = await Hackathon.find(query)
+			.sort({ createdAt: -1 })
+			.select(
+				"-description -criteria -organiserEmail -socialLink -webSiteLink -createdAt -updatedAt -__v",
+			);
 		console.log(hackathons);
 		return NextResponse.json(
 			new ApiResponse(true, "Hackathon call recieved", hackathons),

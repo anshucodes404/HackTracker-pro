@@ -196,7 +196,7 @@ export default function Page() {
             hackathonId={slug as string}
             hackathonName={hackathon.hackathonName}
             setRegistered={setRegistered}
-          /> : <InviteForm hackathonId={hackathon._id} hackathonName={hackathon.hackathonName}/>
+          /> : <InviteForm hackathonId={hackathon._id} hackathonName={hackathon.hackathonName} rules={hackathon.rules}/>
           }
          
         </div>

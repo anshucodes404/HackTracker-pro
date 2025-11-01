@@ -65,7 +65,7 @@ export const sendInviteEmail = async (
                   display: inline-block;
                   padding: 14px 32px;
                   background: #4338ca;
-                  color: white;
+                  color: #ffffff;
                   text-decoration: none;
                   border-radius: 8px;
                   font-weight: 600;

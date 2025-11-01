@@ -13,7 +13,7 @@ function TagsDisplay({ members, onRemove}: { members: string[], onRemove: (index
                 <button
                     type='button'
                     onClick={() => onRemove(index)}
-                    className={"absolute top-1/2 right-0 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity -translate-x-1 rounded-full p-0.5 z-10"}
+                    className={"bg-gray-300 absolute top-1/2 right-0 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity -translate-x-0.5 rounded-full p-0.5 z-10"}
                  
                 >
                     <X size={16}/>
@@ -23,8 +23,9 @@ function TagsDisplay({ members, onRemove}: { members: string[], onRemove: (index
     })
 }
 
-const InviteForm = ({hackathonId, hackathonName}: {hackathonId: string, hackathonName: string}) => {
+const InviteForm = ({hackathonId, hackathonName, rules}: {hackathonId: string, hackathonName: string, rules: string | undefined}) => {
 
+    const [sending, setSending] = useState<boolean>(false)
     const [error, setError] = useState<string>("")
     const {addToast} = useToast()
     const [members, setMembers] = useState<string[]>([])
@@ -36,21 +37,26 @@ const InviteForm = ({hackathonId, hackathonName}: {hackathonId: string, hackatho
         setMembers(prev => [...prev, trimmed])
     }
     const handleInvite = async () => {
-        const res= await fetch("/api/invite",
-            {
-                method: "POST",
-                body: JSON.stringify({membersEmail: members, hackathonId, hackathonName})
+        try {
+            setSending(true)
+            const res= await fetch("/api/invite",
+                {
+                    method: "POST",
+                    body: JSON.stringify({membersEmail: members, hackathonId, hackathonName, rules})
+                }
+            ).then(res => res.json())
+            console.log(res)
+            if(res.success){
+                addToast("Invite Sent Successfully ✅")
+                setMembers([])
+                setMember("")
+                return
             }
-        ).then(res => res.json())
-        console.log(res)
-        if(res.success){
-            addToast("Invite Sent Successfully ✅")
-            setMembers([])
-            setMember("")
-            return
+            setError(res.message || "Failed to send invites")
+        } finally {
+            setSending(false)
         }
 
-        setError(res.message || "Failed to send invites")
     }
 
     const handleEnter = (e: KeyboardEvent) => {
@@ -97,11 +103,14 @@ const InviteForm = ({hackathonId, hackathonName}: {hackathonId: string, hackatho
 
                 <Button
                     type="submit"
-                    className="w-full flex justify-center items-center gap-2 disabled:bg-blue-800"
+                    className=" disabled:bg-blue-800 w-full"
                     onClick={handleInvite}
                     disabled={members.length < 1}
                 >
-                    Send Invitation <SendHorizontal size={16}/>
+                    {
+                        sending ? "Sending..." : <div className='flex justify-center items-center gap-2'>Send Invitation <SendHorizontal size={16}/></div> 
+                    }
+                    
                 </Button>
             </div>
              </div>

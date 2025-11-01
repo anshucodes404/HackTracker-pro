@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import VerifyOTP from "../../../components/verifyOTP/page";
-import { logInuserObjectType } from "@/types/types";
+import type { logInuserObjectType } from "@/types/types";
 import { Button, Input } from "@/components/ui";
 import { SendHorizontal } from "lucide-react";
 import { useUser } from "@/components/UserContext";
