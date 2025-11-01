@@ -1,13 +1,15 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { CalendarDays, Users, Globe, MapPin } from "lucide-react";
 import { useParams } from "next/navigation";
-import { DetailedHackathon } from "@/types/types";
+import type { DetailedHackathon } from "@/types/types";
 import Image from "next/image";
 import Link from "next/link";
 import TeamRegister from "@/components/hackathons/TeamRegister";
 import InviteForm from "@/components/hackathons/InviteForm";
+import Loader from "@/components/ui/Loader";
+import { ErrorMessage } from "@/components/ui";
 // import SendMessagetoParticipants from "@/components/hackathons/SendMessage";
 
 export default function Page() {
@@ -49,21 +51,19 @@ export default function Page() {
   }, [slug]);
 
   if (loading) {
-    return (
-      <div className="max-w-6xl mx-auto px-6 py-10">
-        <p className="text-gray-600">Loading hackathon...</p>
-      </div>
-    );
+    return <Loader fullscreen/>
   }
 
   if (error || !hackathon) {
     return (
       <div className="max-w-6xl mx-auto px-6 py-10">
         <h2 className="text-2xl font-semibold mb-4">Hackathon not found</h2>
-        <p className="text-gray-600">{error ?? "No data available."}</p>
+        <ErrorMessage message={error || "Data not available"} />
       </div>
     );
   }
+
+  console.log("Registerd after click ", registered)
 
   return (
     <div className="max-w-6xl mx-auto px-6 py-10 mt-12">
@@ -190,12 +190,12 @@ export default function Page() {
         </div>
 
         <div>
-          {/* <SendMessagetoParticipants hackathonId={slug}/> */}
           {
             !registered ?  <TeamRegister
             registrationDeadline={hackathon.registrationDeadline}
             hackathonId={slug as string}
             hackathonName={hackathon.hackathonName}
+            setRegistered={setRegistered}
           /> : <InviteForm hackathonId={hackathon._id} hackathonName={hackathon.hackathonName}/>
           }
          

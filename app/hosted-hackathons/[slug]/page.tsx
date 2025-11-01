@@ -1,12 +1,13 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { CalendarDays, Users, Globe, MapPin } from "lucide-react";
 import { useParams } from "next/navigation";
-import { DetailedHackathon } from "@/types/types";
+import type { DetailedHackathon } from "@/types/types";
 import Image from "next/image";
 import Link from "next/link";
 import SendMessagetoParticipants from "@/components/hackathons/SendMessage";
+import Loader from "@/components/ui/Loader";
 
 export default function Page() {
   const params = useParams();
@@ -45,11 +46,7 @@ export default function Page() {
   }, [slug]);
 
   if (loading) {
-    return (
-      <div className="max-w-6xl mx-auto px-6 py-10">
-        <p className="text-gray-600">Loading hackathon...</p>
-      </div>
-    );
+    return <Loader fullscreen/>
   }
 
   if (error || !hackathon) {

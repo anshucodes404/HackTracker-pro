@@ -2,8 +2,8 @@
 import Aside from "@/components/hackathons/Aside";
 import HackathonCard from "@/components/landing/HackathonCard";
 import Loader from "@/components/ui/Loader";
-import { HackathonCardProps } from "@/types/types";
-import React, { useEffect, useState } from "react";
+import type { HackathonCardProps } from "@/types/types";
+import { useEffect, useState } from "react";
 
 
 const Page = () => {
@@ -11,6 +11,7 @@ const Page = () => {
 
   const [isGettingInfo, setIsGettingInfo] = useState<boolean>(false)
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <>
   useEffect(() => {
     console.log("Hackathons page mounted");
     (async () => {
@@ -30,7 +31,7 @@ const Page = () => {
       const raw = await fetch("/api/hackathons/hosted", { method: "GET" });
       const res = await raw.json();
       console.log("hackathons response:", res);
-      if (res && res.data) setHackathons(res.data as HackathonCardProps[]);
+      if (res?.data) setHackathons(res.data as HackathonCardProps[]);
     } catch (err) {
       console.error("Error fetching hackathons:", err);
     } finally{
@@ -43,7 +44,7 @@ const Page = () => {
   }
 
   return (
-    <>
+    
       <div className="grid grid-cols-[1fr_2fr] h-screen ">
         <Aside />
         <div className="h-full overflow-y-auto pr-4 min-w-0 pt-12">
@@ -58,7 +59,7 @@ const Page = () => {
               })}
         </div>
       </div>
-    </>
+    
   );
 };
 

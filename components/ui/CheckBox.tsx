@@ -1,9 +1,14 @@
-import React from 'react'
+import type { InputHTMLAttributes } from 'react'
 
-function CheckBox({id, name, value, label}: {id: string, name: string, value: string, label: string}) {
+
+interface InputProps extends InputHTMLAttributes<HTMLInputElement>{
+  label? : string
+}
+
+const CheckBox: React.FC<InputProps> = ({label, className, id, ...props}) => {
   return (
     <div className='flex gap-3 mt-2 items-center'>
-      <input type="checkbox" value={value} name={name} id={id} />
+      <input type="checkbox" id={id} {...props}/>
       <label className='text-gray-600' htmlFor={id}>{label}</label>
     </div>
   )

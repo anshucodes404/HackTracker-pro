@@ -1,7 +1,6 @@
-import React from "react";
+
 import { Button } from "../ui";
-import Link from "next/link";
-import { HackathonCardProps } from "@/types/types";
+import type { HackathonCardProps } from "@/types/types";
 import Image from "next/image";
 import {
   Award,
@@ -41,7 +40,7 @@ const HackathonCard = ({
     const redirectToDetailedPage = () => {
     if (!_id) return;
     
-    if(path == "/hackathons"){
+    if(path === "/hackathons"){
       router.push(`/hackathons/${_id}`);
     } else {
       router.push(`/hosted-hackathons/${_id}`)
@@ -50,7 +49,7 @@ const HackathonCard = ({
 
 
   return (
-    <div className=" rounded-lg text-sm shadow-md hover:bg-gray-200/80 hover:shadow-md mt-8 p-6 grid grid-cols-1 lg:grid-cols-[100px_2fr_1fr] h-52 max-w-5/6 border-gray-300 overflow-y-hidden ">
+    <div className=" rounded-lg text-sm border border-gray-200/70 transition-colors shadow-md hover:bg-gray-200/80 hover:shadow-md mt-8 p-6 grid grid-cols-1 lg:grid-cols-[100px_2fr_1fr] h-52 max-w-5/6 overflow-y-hidden ">
       <section className="lg:block hidden">
         {bannerImage ? (
           <Image src={bannerImage} alt="Banner" />
@@ -105,6 +104,7 @@ const HackathonCard = ({
         <div className="flex gap-2 mt-2 items-center flex-wrap">
           <Tags className="size-4" />
           {tags.map((tag, index) => {
+            // biome-ignore lint/suspicious/noArrayIndexKey: <>
             return (<div key={index}>{TagsList(tag)}</div> )
           })}
         </div>

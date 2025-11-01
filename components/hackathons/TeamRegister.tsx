@@ -1,12 +1,13 @@
-import React, { FormEvent, useState } from "react";
+import { useState } from "react";
 import { Button, Input } from "../ui";
 
 const TeamRegister = ({
   registrationDeadline,
   hackathonId,
-  hackathonName
+  hackathonName,
+  setRegistered
 }: {
-  registrationDeadline: Date, hackathonId: string, hackathonName: string
+  registrationDeadline: Date, hackathonId: string, hackathonName: string, setRegistered: (args: boolean) => void
 }) => {
 
     const [teamName, setTeamName] = useState<string>("")
@@ -19,10 +20,14 @@ const TeamRegister = ({
                   body: JSON.stringify({name: teamName, hackathonId, hackathonName})
               }
           ).then(res => res.json())
+
+          if(res.success){
+              setRegistered(true)
+          }
   
-          console.log(res)
-          console.log(res.message)
-          console.log(res.data)
+          // console.log(res)
+          // console.log(res.message)
+          // console.log(res.data)
         } catch (error) {
           console.log(error)
         } finally{

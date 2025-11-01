@@ -10,9 +10,11 @@ import {
 } from "@/types/types";
 import { Button, Input } from "@/components/ui";
 import { useUser } from "../UserContext";
+import { useRouter } from "next/navigation";
 
 const VerifyOTP: React.FC<verifyOTPProps> = ({ user }) => {
 
+  const router = useRouter()
   const { setUser } = useUser()
   const [otp, setOtp] = useState<string>("");
   const [verifying, setVerifying] = useState<boolean>(false)
@@ -58,6 +60,7 @@ const VerifyOTP: React.FC<verifyOTPProps> = ({ user }) => {
       console.log(res);
       if(res.success){
         setUser(res.data)
+        router.push("/hackathons")
       }
     } catch (error) {
 

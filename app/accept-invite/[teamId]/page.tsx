@@ -56,7 +56,7 @@ function Page({ params }: { params: { teamId: string } }) {
   };
 
   const handleDecline = async () => {
-    const res = await fetch(`/api/accept-decline-invite/${params.teamId}`, {
+    await fetch(`/api/accept-decline-invite/${params.teamId}`, {
       method: "POST",
       body: JSON.stringify({action: "decline"})
     }).then(res => res.json())
@@ -110,7 +110,8 @@ function Page({ params }: { params: { teamId: string } }) {
           <div className="font-semibold text-gray-700 mb-1">Rules:</div>
           <ul className="list-disc list-inside text-sm text-gray-600">
             {invite.rules.map((rule: string, idx: number) => (
-              <li key={idx}>{rule}</li>
+              // biome-ignore lint/suspicious/noArrayIndexKey: <>
+<li key={idx}>{rule}</li>
             ))}
           </ul>
         </div>

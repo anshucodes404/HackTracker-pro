@@ -1,12 +1,14 @@
-import React, { KeyboardEvent, useState } from 'react'
-import { Button, Error, Input } from '../ui'
+import { type KeyboardEvent, useState } from 'react'
+// biome-ignore lint/suspicious/noShadowRestrictedNames: <>
+import { Button, ErrorMessage, Input } from '../ui'
 import { SendHorizontal, X } from 'lucide-react'
 import { useToast } from '../ToastContext'
 
 function TagsDisplay({ members, onRemove}: { members: string[], onRemove: (index: number) => void }) {
     return members.map((member, index) => {
         return (
-            <span key={index} className='group relative inline-block text-xs px-2 py-0.5 bg-gray-300 rounded-sm'>
+            // biome-ignore lint/suspicious/noArrayIndexKey: <>
+<span key={index} className='group relative inline-block text-xs px-2 py-0.5 bg-gray-300 rounded-sm'>
                 <span className='select-none'>{member}</span>
                 <button
                     type='button'
@@ -53,7 +55,7 @@ const InviteForm = ({hackathonId, hackathonName}: {hackathonId: string, hackatho
 
     const handleEnter = (e: KeyboardEvent) => {
         setError("")
-        if (e.key == "Enter") {
+        if (e.key === "Enter") {
             e.preventDefault()
             handleMembers()
             setMember("")
@@ -91,7 +93,7 @@ const InviteForm = ({hackathonId, hackathonName}: {hackathonId: string, hackatho
                 </div>
                 }
 
-                {error && <Error message={error} />}
+                {error && <ErrorMessage message={error} />}
 
                 <Button
                     type="submit"

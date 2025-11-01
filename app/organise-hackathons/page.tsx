@@ -78,9 +78,9 @@ export default function Page() {
       setIsCreating(true)
       e.preventDefault();
       const formData = new FormData(e.currentTarget);
-      for (const [key, value] of formData.entries()) {
-        console.log(key, ": ", value);
-      }
+      // for (const [key, value] of formData.entries()) {
+      //   console.log(key, ": ", value);
+      // }
   
       const res = await fetch("/api/organise-hackathon",
         {
@@ -96,7 +96,7 @@ export default function Page() {
         router.push("/hosted-hackathons")
       }
 
-    } catch (error) {
+    } catch (_) {
       addToast("Creation failed")
     } finally {
       setIsCreating(false)
@@ -109,7 +109,7 @@ export default function Page() {
   }
 
   return (
-    <>
+    
       <form onSubmit={handleSubmit}>
         <div className="max-w-5xl mx-auto bg-white rounded-2xl shadow-md p-8 mt-20 mb-20 border border-gray-200">
           <div className="mb-6">
@@ -235,6 +235,6 @@ export default function Page() {
           </div>
         </div>
       </form>
-    </>
+
   );
 }
