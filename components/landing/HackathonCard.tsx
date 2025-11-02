@@ -11,6 +11,8 @@ import {
   Globe,
   Tags,
   Users,
+  // biome-ignore lint/suspicious/noShadowRestrictedNames: <>
+  Map
 } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 
@@ -19,6 +21,7 @@ const HackathonCard = ({
   _id,
   hackathonName,
   mode,
+  location,
   tagline,
   organiserName,
   duration,
@@ -69,10 +72,14 @@ const HackathonCard = ({
             </span>
           </div>
           <div className="">
-            <span className="flex gap-2 mt-2 items-center">
+           { mode === "online" ? (<span className="flex gap-2 mt-2 items-center">
               <Globe className="size-4" />
               {mode}
-            </span>
+            </span> ) : 
+             (<span className="flex gap-2 mt-2 items-center">
+              <Map size={4} />
+              {location}
+            </span>)}
             <span className="flex gap-2 mt-2 items-center">
               <Users className="size-4" />
               {`${participants?.length} Teams`}
@@ -125,10 +132,25 @@ function Status(status: string) {
   if (status === "upcoming") {
     return (
       <span className="w-1/2 bg-[#23A196] text-white px-4 py-1 rounded-full ">
-        <span>{status}</span>
+        <span>{status.toUpperCase()}</span>
       </span>
     );
-  }
+  } 
+   if (status === "published") {
+    return (
+      <span className="w-1/2 bg-gray-400 text-black px-4 py-1 rounded-full ">
+        <span>{status.toUpperCase()}</span>
+      </span>
+    );
+  } 
+   if (status === "ended") {
+    return (
+      <span className="w-1/2 bg-[#b41313] text-white px-4 py-1 rounded-full ">
+        <span>{status.toUpperCase()}</span>
+      </span>
+    );
+  } 
+  
 }
 
 export default HackathonCard;

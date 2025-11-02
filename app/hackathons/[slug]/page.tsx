@@ -114,15 +114,18 @@ export default function Page() {
             Team Size: {hackathon.minTeamSize}–{hackathon.maxTeamSize}
           </span>
         </div>
-        <div className="flex items-center gap-2">
           {hackathon.mode === "online" ? (
-            //TODO: Add the location if In place and online for online
+        <div className="flex items-center gap-2">
+            {/* //TODO: Add the location if In place and online for online */}
             <Globe size={16} />
-          ) : (
-            <MapPin size={16} />
-          )}
           <span className="capitalize">{hackathon.mode}</span>
         </div>
+          ) : (
+             <div className="flex items-center gap-2">
+            <MapPin size={16} />
+              <span className="capitalize">{hackathon?.location ?? "No Location Provided" }</span>
+              </div>
+          )}
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-10">

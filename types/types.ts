@@ -46,6 +46,7 @@ export interface HackathonCardProps {
 	_id: string;
 	hackathonName: string;
 	mode: string;
+	location?: string;
 	tagline: string;
 	organiserName: string;
 	duration: string;
@@ -66,6 +67,7 @@ export type DetailedHackathon = {
 	_id: string;
 	hackathonName: string;
 	mode: "online" | "inplace";
+	location?: string;
 	tagline?: string;
 	description: string;
 	paricipants?: string[];

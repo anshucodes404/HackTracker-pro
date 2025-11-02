@@ -3,8 +3,10 @@ import mongoose, { Schema, Document } from "mongoose";
 export interface IHackathon extends Document {
   hackathonName: string;
   mode: "online" | "inplace";
+  location? : string;
   tagline?: string;
   description: string;
+  prize: string;
   participants?: mongoose.Types.ObjectId[];
   participantsEmails?: string[];  //? team leaders email
   rules?: string;
@@ -37,11 +39,18 @@ const hackathonSchema = new Schema<IHackathon>(
       enum: ["online", "inplace"],
       default: "online"
     },
+    location: {
+      type: String
+    },
     tagline: {
       type: String
     },
     description: {
       type: String,
+    },
+    prize: {
+      type:String,
+      default: "0"
     },
     participants: {
       type: [Schema.Types.ObjectId],

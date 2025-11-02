@@ -11,8 +11,8 @@ export default async function jwtDecode(req: NextRequest){
      const cookieToken = (await cookies()).get("Token")?.value
 
      const headerToken = req.headers.get("Authorization")?.split(" ")[1]
-    
- 
+
+
      const token = cookieToken || headerToken
 
      if(!token){

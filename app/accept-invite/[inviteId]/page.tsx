@@ -1,13 +1,14 @@
 "use client";
-import React, { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
+import { useParams, useRouter } from "next/navigation";
 import { ExternalLink } from "lucide-react";
 import { useToast } from "@/components/ToastContext";
-import { Button } from "@/components/ui";
+import { Button, ErrorMessage } from "@/components/ui";
 import Loader from "@/components/ui/Loader";
 import type { Invite } from "@/types/types";
 
-function Page({ params }: { params: { teamId: string } }) {
+function Page() {
+	const params = useParams()
 	const { addToast } = useToast();
 	const router = useRouter();
 	const [loading, setLoading] = useState(true);
@@ -16,10 +17,9 @@ function Page({ params }: { params: { teamId: string } }) {
 	useEffect(() => {
 		async function loadInvite() {
 			try {
-				// const data = await fetchInviteDetails(params.teamId);
-				const data = await fetch(`/api/invite`, {
+				console.log("Fetching invitation")
+				const data = await fetch(`/api/invite?inviteId=${params.inviteId}`, {
 					method: "GET",
-					body: JSON.stringify({ teamId: params.teamId }),
 				}).then((res) => res.json());
 				setInvite(data.data);
 			} catch (error) {
@@ -32,12 +32,12 @@ function Page({ params }: { params: { teamId: string } }) {
 		loadInvite();
 	}, [params]);
 
-	console.log("TeamId: ", params.teamId);
+	console.log("TeamId: ", params.inviteId);
 
 	const handleAccept = async () => {
-		const res = await fetch(`/api/accept-decline-invite/${params.teamId}`, {
+		const res = await fetch(`/api/accept-decline-invite/${params.inviteId}`, {
 			method: "POST",
-			body: JSON.stringify({ action: "accept", InviteId: invite?._id }),
+			body: JSON.stringify({ action: "accept",  teamId: invite?.teamId}),
 		}).then((res) => res.json());
 		if (res.success) {
 			addToast("Invitation accepted!");
@@ -46,9 +46,9 @@ function Page({ params }: { params: { teamId: string } }) {
 	};
 
 	const handleDecline = async () => {
-		await fetch(`/api/accept-decline-invite/${params.teamId}`, {
+		await fetch(`/api/accept-decline-invite/${params.inviteId}`, {
 			method: "POST",
-			body: JSON.stringify({ action: "decline", InviteId: invite?._id }),
+			body: JSON.stringify({ action: "decline", teamId: invite?.teamId}),
 		}).then((res) => res.json());
 		addToast("Invitation declined.");
 		router.push("/");
@@ -57,9 +57,10 @@ function Page({ params }: { params: { teamId: string } }) {
 	if (loading) return <Loader fullscreen />;
 	if (error)
 		return (
-			<div className="flex items-center justify-center h-screen text-red-500">
-				{error}
-			</div>
+	<div className=" fixed top-1/2 right-1/2 -translate-y-1/2">
+		<ErrorMessage message={error} />
+
+	</div>
 		);
 
 	return (
@@ -88,7 +89,6 @@ function Page({ params }: { params: { teamId: string } }) {
 					</div>
 				</div>
 				<div className="mb-4">
-					<div className="font-semibold text-gray-700 mb-1">Deadline:</div>
 					<div className="font-semibold text-gray-700 mb-1">Rules:</div>
 					<ul className="list-disc list-inside text-sm text-gray-600">
 						{invite?.rules?.map((rule: string, idx: number) => (

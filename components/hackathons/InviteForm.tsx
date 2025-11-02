@@ -39,6 +39,7 @@ const InviteForm = ({hackathonId, hackathonName, rules}: {hackathonId: string, h
     const handleInvite = async () => {
         try {
             setSending(true)
+            setError("")
             const res= await fetch("/api/invite",
                 {
                     method: "POST",

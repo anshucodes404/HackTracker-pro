@@ -23,16 +23,21 @@ const Avatar: React.FC<AvatarProps> = ({ user = "User" }) => {
       ) {
         //here it is checking is the clicked element lies inside the useRef div and dropdownRef.current points to the DOM element it is attached to
         setIsOpen(false);
-      }
+      }                                                          
     };
 
     document.addEventListener("mousedown", handleClick);
     return () => document.removeEventListener("mousedown", handleClick);
   }, []);
 
+  const handleClose = () => {
+    setIsOpen(false)
+  }
+
   return (
     <div className="relative" ref={dropdownRef}>
       <button
+      type="button"
         onClick={() => setIsOpen(!isOpen)}
         className="w-10 h-10 rounded-lg bg-gray-200 hover:bg-blue-50 transition-colors flex items-center justify-center overflow-hidden hover:text-blue-600 focus:text-blue-600 focus:bg-blue-50 text-2xl font-semibold"
       >
@@ -47,6 +52,7 @@ const Avatar: React.FC<AvatarProps> = ({ user = "User" }) => {
 
           <div className="flex flex-col items-center mt-1">
             <Link
+            onClick={handleClose}
               href="/profile"
               className="flex items-center w-full rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
             >
@@ -55,6 +61,7 @@ const Avatar: React.FC<AvatarProps> = ({ user = "User" }) => {
             </Link>
 
             <Link
+            onClick={handleClose}
               href="/participated-hackathons"
               className="flex items-center w-full rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
             >
@@ -64,6 +71,7 @@ const Avatar: React.FC<AvatarProps> = ({ user = "User" }) => {
 
             <Link
               href="/hosted-hackathons"
+              onClick={handleClose}
               className="flex items-center w-full rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
             >
               <Rocket className="w-4 h-4 mr-2" />
@@ -71,6 +79,7 @@ const Avatar: React.FC<AvatarProps> = ({ user = "User" }) => {
             </Link>
 
             <button
+            type="button"
               onClick={async () => {
                 const res = await fetch("/api/logout", {
                   method: "POST",

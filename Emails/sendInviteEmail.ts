@@ -1,24 +1,24 @@
 import nodemailer from "nodemailer";
 
 const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST,
-  port: Number(process.env.SMTP_PORT) || 587,
-  secure: false,
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS,
-  },
+	host: process.env.SMTP_HOST,
+	port: Number(process.env.SMTP_PORT) || 587,
+	secure: false,
+	auth: {
+		user: process.env.SMTP_USER,
+		pass: process.env.SMTP_PASS,
+	},
 });
 
 export const sendInviteEmail = async (
-  to: string[],
-  teamName: string,
-  link: string,
-  hackathonName: string,
-  leaderName: string
+	to: string[],
+	teamName: string,
+	link: string,
+	hackathonName: string,
+	leaderName: string,
 ) => {
-  try {
-    const emailTemplate = `
+	try {
+		const emailTemplate = `
       <!DOCTYPE html>
       <html>
       <head>
@@ -100,6 +100,10 @@ export const sendInviteEmail = async (
                   color: #4338ca;
                   font-weight: 600;
               }
+             a {
+                color: white;
+                text-decoration: none;
+                }
           </style>
       </head>
       <body>
@@ -140,18 +144,18 @@ export const sendInviteEmail = async (
       </html>
     `;
 
-    const mailOptions = {
-      from: `"HackHub" <${process.env.SMTP_USER}>`,
-      to,
-      subject: `Join ${teamName} for ${hackathonName} on HackHub! 🚀`,
-      html: emailTemplate,
-    };
+		const mailOptions = {
+			from: `"HackHub" <${process.env.SMTP_USER}>`,
+			to,
+			subject: `Join ${teamName} for ${hackathonName} on HackHub! 🚀`,
+			html: emailTemplate,
+		};
 
-    const info = await transporter.sendMail(mailOptions);
-    console.log("✅ Invitation email sent:", info.messageId);
-    return true;
-  } catch (error) {
-    console.error("❌ Error sending invite email:", error);
-    throw error;
-  }
+		const info = await transporter.sendMail(mailOptions);
+		console.log("✅ Invitation email sent:", info.messageId);
+		return true;
+	} catch (error) {
+		console.error("❌ Error sending invite email:", error);
+		throw error;
+	}
 };

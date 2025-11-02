@@ -28,7 +28,7 @@ export async function GET(req: NextRequest) {
 		}
 
 		if (tags && tags.length > 0) {
-			query.tags = { $in: tags };
+			query.tags = { $in: tags.map(tag => tag.trim().toLowerCase()) };
 		}
 
 		console.log("Hackathon call recieved");

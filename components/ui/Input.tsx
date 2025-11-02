@@ -9,6 +9,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 const Input: React.FC<InputProps> = ({ label, className, ...props }) => {
   return (
     <div className="flex flex-col gap-1">
+      {/** biome-ignore lint/a11y/noLabelWithoutControl: <> */}
       {label && <label className="text-sm font-medium text-gray-700 mb-1">{label}</label>}
       <input
         className={clsx(

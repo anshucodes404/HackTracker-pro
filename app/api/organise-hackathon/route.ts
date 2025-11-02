@@ -22,6 +22,9 @@ const hackathonReqSchema = z.object({
   socialLink: z.string().optional(),
   webSiteLink: z.string().optional(),
   tags: z.string(),
+  mode: z.string(),
+  prize: z.string(),
+  location: z.string()
 });
 
 export async function POST(req: NextRequest) {
@@ -58,10 +61,13 @@ export async function POST(req: NextRequest) {
       socialLink,
       webSiteLink,
       tags,
+      mode,
+      prize,
+      location
     } = parsedBody.data;
 
     console.log(tags);
-    const tagArray = Array.from(tags.split(","));
+    const tagArray = Array.from(tags.split(",")).map(tag => tag.trim().toLowerCase())
     console.log(tagArray);
     await dbConnect();
     const hackathon = await Hackathon.create({
@@ -83,6 +89,9 @@ export async function POST(req: NextRequest) {
       socialLink,
       webSiteLink,
       tags: tagArray,
+      mode,
+      prize,
+      location
     });
 
     if (!hackathon) {

@@ -1,24 +1,12 @@
 import React from "react";
 import { Button } from "../ui";
 import Link from "next/link";
-import HackathonCard from "./HackathonCard";
 import Image from "next/image";
 
-const featuredHackathon = {
-  title: "CodeSprint 2025",
-  organizer: "ACM Student Chapter",
-  date: "Oct 20-22, 2025",
-  duration: "48 hours",
-  teamSize: "2-4 members",
-  registrationOpen: true,
-  tags: ["AI/ML", "Web3", "Open Innovation"],
-  registeredTeams: 120,
-  slug: "codesprint-2025",
-};
 
 const Hero = () => {
   return (
-    <section className="min-h-[85vh] bg-gradient-to-b from-primary/5 to-transparent pt-20 pb-16">
+    <section className="pl-20 pt-20 pb-6">
       <div className="container mx-auto px-4 grid lg:grid-cols-2 gap-12 items-center">
         <div className="space-y-6">
           <h1 className="text-5xl font-bold leading-tight">
@@ -38,17 +26,12 @@ const Hero = () => {
               <Button variant="secondary">Host a Hackathon</Button>
             </Link>
           </div>
-          <div className="pt-8">
-            <p className="text-sm text-textSecondary mb-4">
-              🔥 Featured Hackathon
-            </p>
-            {/* <HackathonCard {...featuredHackathon} /> */}
-          </div>
+          
         </div>
-        <div className="hidden lg:block">
+        <div className="hidden md:block">
           <div className="relative">
-            <div className="absolute -top-6 -left-6 w-24 h-24 bg-secondary/10 rounded-full blur-xl"></div>
-            <div className="absolute -bottom-8 -right-8 w-32 h-32 bg-primary/10 rounded-full blur-xl"></div>
+            
+          
             <Image
               width={1920}
               height={800}

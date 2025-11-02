@@ -36,7 +36,8 @@ export async function POST(req: NextRequest) {
       teamName: teamDetails.name,
       inviterName: name,
       inviterEmail: collegeEmail,
-      rules: rules?.split(",")
+      rules: rules?.split(","),
+      expiresAt: new Date(Date.now() + 96 * 60 * 60 * 1000) // 4 day timing set after invitation
     }
 
 
@@ -50,10 +51,10 @@ export async function POST(req: NextRequest) {
 
     const teamMembersEmail = membersEmail.map((email: string) => email.toLowerCase().concat("@kiit.ac.in"))
   
-    const { name: teamName, _id: teamId } = teamDetails
+    const { name: teamName } = teamDetails
   
   
-    const inviteLink = `localhost:3000/accept-invite/${teamId}`
+    const inviteLink = `http://localhost:3000/accept-invite/${invite._id}`
   
   
     await sendInviteEmail(teamMembersEmail, teamName, inviteLink, hackathonName, name);
@@ -67,36 +68,33 @@ export async function POST(req: NextRequest) {
 
 
 export async function GET(req: NextRequest){
+  console.log("Request recieved")
   try {
     await dbConnect()
-    const {teamId} = await req.json()
+    const searchParams = req.nextUrl.searchParams
+    const inviteId = searchParams.get("inviteId")
 
-    if(!teamId){
+    if(!inviteId){
       return NextResponse.json(
         new ApiResponse(false, "Team ID is missing"), {status: 400}
       )
     }
 
-    const teamData = await Invite.findById(teamId).select("-expiresAt -createdAt")
+    const InviteData = await Invite.findById(inviteId).select("-expiresAt -createdAt")
 
-    if(!teamData){
+    if(!InviteData){
       return NextResponse.json(
         new ApiResponse(false, "Invitation not found"), {status: 500}
       )
     }
 
     return NextResponse.json(
-      new ApiResponse(true, "Team Data Fetched", teamData), {status: 200}
+      new ApiResponse(true, "Team Data Fetched", InviteData), {status: 200}
     )
 
-
-
-
-
-
-
-
-  } catch (error) {
-    
+  } catch (_) {
+    return NextResponse.json(
+      new ApiResponse(false, "Something went wrong while fetching invitation data")
+    )
   }
 }

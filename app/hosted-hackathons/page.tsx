@@ -45,18 +45,23 @@ const Page = () => {
 
   return (
     
-      <div className="grid grid-cols-[1fr_2fr] h-screen ">
+      <div className="grid grid-cols-[1fr_2fr] h-screen pb-12">
         <Aside />
         <div className="h-full overflow-y-auto pr-4 min-w-0 pt-12">
-          {!hackathons
-            ? "No Hackathons are open or Upcoming"
-            : hackathons.map((hackathon) => {
-                return (
-                  <div key={hackathon._id} className="cursor-pointer">
-                    <HackathonCard {...hackathon} btnText="View Details" />
-                  </div>
-                );
-              })}
+          {hackathons && hackathons.length > 0
+            ? (hackathons.map((hackathon) => {
+              return (
+                <div key={hackathon._id} className="cursor-pointer">
+                  <HackathonCard {...hackathon} btnText="View Details" />
+                </div>
+              );
+            }))
+           : ( <div  className="h-full flex justify-center items-center">
+            <span className="text-2xl font-bold text-gray-400">
+              No Hackathons Hosted
+            </span>
+            </div>)
+             }
         </div>
       </div>
     

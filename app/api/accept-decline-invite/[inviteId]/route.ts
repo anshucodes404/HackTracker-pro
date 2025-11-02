@@ -1,29 +1,28 @@
 import dbConnect from "@/lib/dbConnect";
-import { NextRequest, NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 import jwtDecode from "@/lib/jwtDecode";
 import { ApiResponse } from "@/utils/ApiResponse";
 import { Team } from "@/models/team.model";
 import { sendDeclineEmail } from "@/Emails/sendDeclineEmail";
-// import { User } from "@/models/user.model";
-import { Hackathon } from "@/models/hackathon.model";
 import { sendAcceptEmail } from "@/Emails/sendAcceptEmail";
 import { Invite } from "@/models/invite.model";
 
 export async function POST(
 	req: NextRequest,
-	{ params }: { params: Promise<{ teamId: string }> },
+	{ params }: { params: Promise<{ inviteId: string }> },
 ) {
 	try {
 		console.log("Request");
-		const { teamId } = await params;
-		const { action, InviteId } = await req.json();
+		const { inviteId } = await params;
+		const { action, teamId } = await req.json();
 		await dbConnect();
-		console.log("Team Id: ", teamId);
+		console.log("Team Id: ", inviteId);
 		const { _id, name, collegeEmail } = await (await jwtDecode(req))
 			.json()
 			.then((res) => res.data);
 
-		if (!teamId) {
+		if (!inviteId) {
 			console.error("Team ID is missing");
 			return NextResponse.json(new ApiResponse(false, "Team ID is missing"), {
 				status: 400,
@@ -36,6 +35,8 @@ export async function POST(
 				name: name,
 				collegeEmail: collegeEmail,
 			};
+
+		
 
 			const team = await Team.findByIdAndUpdate(
 				teamId,
@@ -53,7 +54,7 @@ export async function POST(
 			}
 			// console.log(team)
 
-			await Invite.findByIdAndUpdate(InviteId, {
+			await Invite.findByIdAndUpdate(inviteId, {
 				$set: { status: "accepted" },
 			});
 
@@ -73,8 +74,8 @@ export async function POST(
 			return NextResponse.json(new ApiResponse(true, "Invitation accepted"), {
 				status: 201,
 			});
-		} else {
-			const team = await Team.findById(teamId);
+		} else {  //? If declined
+			const team = await Team.findById(inviteId);
 			if (!team) {
 				return NextResponse.json(new ApiResponse(false, "Team not found"), {
 					status: 404,
@@ -85,16 +86,7 @@ export async function POST(
 				(member: { role: string }) => member.role === "leader",
 			)[0];
 
-			const hackathon = await Hackathon.findById(team.hackathonId);
-			if (!hackathon) {
-				return NextResponse.json(
-					new ApiResponse(false, "Hackathon not found"),
-					{ status: 404 },
-				);
-			}
-			// console.log(team)
-
-			await Invite.findByIdAndUpdate(InviteId, {
+			await Invite.findByIdAndUpdate(inviteId, {
 				$set: { status: "declined" },
 			});
 
@@ -103,7 +95,7 @@ export async function POST(
 				teamLeaderEmail: leader.collegeEmail,
 				declinerName: name,
 				declinerEmail: collegeEmail,
-				hackathonName: hackathon.hackathonName,
+				hackathonName: team.hackathonName,
 				teamName: team.name,
 			});
 

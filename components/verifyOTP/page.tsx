@@ -8,7 +8,7 @@ import {
   signupUser,
   verifyOTPProps,
 } from "@/types/types";
-import { Button, Input } from "@/components/ui";
+import { Button, ErrorMessage, Input } from "@/components/ui";
 import { useUser } from "../UserContext";
 import { useRouter } from "next/navigation";
 
@@ -18,6 +18,7 @@ const VerifyOTP: React.FC<verifyOTPProps> = ({ user }) => {
   const { setUser } = useUser()
   const [otp, setOtp] = useState<string>("");
   const [verifying, setVerifying] = useState<boolean>(false)
+  const [error, setError] = useState<string>("")
   console.log(user);
   const mode = user?.mode;
 
@@ -50,6 +51,7 @@ const VerifyOTP: React.FC<verifyOTPProps> = ({ user }) => {
     e.preventDefault();
     setVerifying(true)
     try {
+      setError("")
       const data = buildData();
       console.log(data);
       const res = await fetch("/api/auth", {
@@ -61,10 +63,11 @@ const VerifyOTP: React.FC<verifyOTPProps> = ({ user }) => {
       if(res.success){
         setUser(res.data)
         router.push("/hackathons")
+      } else {
+        setError("Incorrect OTP")
       }
-    } catch (error) {
-
-    } finally {
+    }
+    finally {
       setVerifying(false)
     }
   };
@@ -86,6 +89,11 @@ const VerifyOTP: React.FC<verifyOTPProps> = ({ user }) => {
             value={otp}
             onChange={(e) => setOtp(e.target.value)}
           />
+          <div className="mb-3">
+          {
+            error && <ErrorMessage message={error} />
+          }
+          </div>
           <Button type="submit">{!verifying ? "Verify OTP" : "Verifying..."}</Button>
         </div>
       </form>
