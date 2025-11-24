@@ -1,12 +1,13 @@
 "use client"
-import React, {
+import type React from "react";
+import {
   createContext,
   useContext,
   useState,
   useCallback,
-  useEffect,
+  useEffect,type 
   ReactNode,
-} from "react";
+} from "react"
 import { X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
