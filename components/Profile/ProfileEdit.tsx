@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from "react";
+// biome-ignore assist/source/organizeImports: <>
+import type React from "react";
+import { useState, useEffect } from "react";
 import { Button, Input, Section } from "../ui";
 import { X } from "lucide-react";
 import { useToast } from "../ToastContext";

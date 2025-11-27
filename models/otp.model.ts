@@ -1,4 +1,6 @@
-import mongoose, { Schema, Document } from "mongoose";
+
+// biome-ignore assist/source/organizeImports: <>
+import mongoose, { Schema, type Document } from "mongoose";
 
 export interface IOTP extends Document {
   collegeEmail: string;
