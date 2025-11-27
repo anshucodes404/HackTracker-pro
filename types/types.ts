@@ -90,7 +90,7 @@ export type DetailedHackathon = {
 };
 
 export type Invite = {
-  _id: string;
+	_id: string;
 	teamId: string;
 	hackathonName: string;
 	tagline: string;
@@ -98,5 +98,5 @@ export type Invite = {
 	inviterName: string;
 	inviterEmail: string;
 	status: "pending" | "accepted" | "declined";
-  rules: string[]
+	rules: string[];
 };

@@ -53,7 +53,6 @@ export async function POST(req: Request) {
   await dbConnect();
   try {
     const body = await req.json();
-    console.log(body);
 
     const mode = body.mode;
 
@@ -73,7 +72,7 @@ export async function POST(req: Request) {
 
       const otpDoc = await OTP.findOne({ collegeEmail });
 
-      if (otp != otpDoc.otp) {
+      if (otp !== otpDoc?.otp) {
         return NextResponse.json(new ApiResponse(false, "OTP does not match"), {
           status: 400,
         });
@@ -98,7 +97,7 @@ export async function POST(req: Request) {
       const otpDoc = await OTP.findOne({ collegeEmail });
       console.log(otpDoc);
 
-      if (otp != otpDoc.otp) {
+      if (otp !== otpDoc?.otp) {
         return NextResponse.json(new ApiResponse(false, "OTP does not match"), {
           status: 400,
         });

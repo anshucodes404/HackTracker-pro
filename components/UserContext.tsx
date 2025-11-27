@@ -13,6 +13,7 @@ interface UserData {
 	_id: string;
 	name: string;
 	collegeEmail: string;
+   mobileNumber: string;
 	email: string;
 	hostelEmail: string;
 	branch: string;
@@ -36,7 +37,7 @@ const UserContext = createContext<UserContextType | undefined>(undefined);
 export const useUser = (): UserContextType => {
 	const context = useContext(UserContext);
 	if (!context) {
-		throw new Error("useUser must be used within UserProvider");
+		throw new Error("UserProvider is missing");
 	}
 
 	return context;
