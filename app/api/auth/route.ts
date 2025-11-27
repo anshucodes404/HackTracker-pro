@@ -1,10 +1,11 @@
-import { IUser, User } from "@/models/user.model";
+// biome-ignore assist/source/organizeImports: <>
+import { type IUser, User } from "@/models/user.model";
 import dbConnect from "@/lib/dbConnect";
 import { NextResponse } from "next/server";
 import z from "zod";
 import { ApiResponse } from "@/utils/ApiResponse";
 import { OTP } from "@/models/otp.model";
-import jwt, { SignOptions } from "jsonwebtoken";
+import jwt, { type SignOptions } from "jsonwebtoken";
 
 const logInSchema = z.object({
   collegeEmail: z
