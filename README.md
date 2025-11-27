@@ -1,36 +1,124 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# HackHub — Hack Trackr Pro
 
-## Getting Started
+<div align="center">
+  <h3>Beautiful, minimal dashboard for hackathon management</h3>
 
-First, run the development server:
+  <!-- Tech badges -->
+  <p>
+    <img src="https://img.shields.io/badge/Next.js-000000?logo=next.js&logoColor=white" alt="Next.js" />
+    <img src="https://img.shields.io/badge/React-20232A?logo=react&logoColor=61DAFB" alt="React" />
+    <img src="https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white" alt="TypeScript" />
+    <img src="https://img.shields.io/badge/Tailwind_CSS-06B6D4?logo=tailwindcss&logoColor=white" alt="Tailwind CSS" />
+    <img src="https://img.shields.io/badge/Node.js-339933?logo=node.js&logoColor=white" alt="Node.js" />
+    <img src="https://img.shields.io/badge/MongoDB-47A248?logo=mongodb&logoColor=white" alt="MongoDB" />
+    <img src="https://img.shields.io/badge/Lucide_react-111827?logo=react&logoColor=white" alt="lucide-react" />
+    <img src="https://img.shields.io/badge/Cloudinary-063A7C?logo=cloudinary&logoColor=white" alt="Cloudinary" />
+    <img src="https://img.shields.io/badge/Framer_Motion-0055FF?logo=framer&logoColor=white" alt="Framer Motion" />
+  </p>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+  <p>
+    <em>A polished UI for organisers & participants — profiles, invites, teams, hosted & participated hackathons.</em>
+  </p>
+</div>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## ✨ Highlights
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Modern Next.js (App Router) + TypeScript codebase.
+- Responsive UI built with Tailwind CSS and accessibility-minded components.
+- Profile editing modal with optimistic UI and loader overlay (size stable while saving).
+- Serverless API routes (Next.js) with Mongoose for MongoDB.
+- Integrations: Cloudinary for uploads, lucide-react icons, Framer Motion for subtle animations.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🧭 Quick start
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Prerequisites: Node.js (18+ recommended), npm.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Install
+   ```bash
+   npm install
+   ```
 
-## Deploy on Vercel
+2. Environment
+   - Copy `.env.example` → `.env` and populate:
+     - DATABASE_URI, NEXT_PUBLIC_CLOUDINARY, JWT_SECRET, etc. (project-specific)
+   - Example (not included here): MONGO connection string, Cloudinary credentials, email config.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. Run (dev)
+   ```bash
+   npm run dev
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+4. Build / start
+   ```bash
+   npm run build
+   npm start
+   ```
+
+---
+
+## 📦 Available scripts
+
+- `npm run dev` — start dev server (Next.js)
+- `npm run build` — production build
+- `npm start` — start production server
+- `npm run lint` — lint project
+
+(See package.json for current script details.)
+
+---
+
+## 🗂 Project structure (top-level)
+
+- `app/` — Next.js app router pages & API routes
+- `components/` — UI components (Profile, UI primitives, Loader, Toast)
+- `styles/` — global & theme CSS (Tailwind config)
+- `api/` — Next API handlers (under `app/api`)
+- `README.md`, `package.json`, `tsconfig.json`
+
+---
+
+## 🔧 Tech stack
+
+- Next.js — fast SSR/SSG + App Router
+- React — UI library
+- TypeScript — static types
+- Tailwind CSS — utility-first styling
+- MongoDB + Mongoose — database
+- lucide-react — icons
+- Cloudinary — image uploads
+- Framer Motion — animations
+- Nodemailer — email (invites/notifications)
+
+---
+
+## ♻️ Contributing
+
+- Fork repository, create feature branch, open PR.
+- Keep changes focused; lint & type-check before PR.
+- Add tests for new logic where applicable.
+
+---
+
+## 📝 Notes & Maintenance
+
+- Ensure Tailwind is compiled (postcss config) when modifying styles.
+- API routes expect authentication for protected endpoints — check `app/api/auth` for auth flow.
+- Keep secrets out of repository; use environment variables.
+
+---
+
+## 📜 License
+
+MIT — see LICENSE file.
+
+---
+
+If you want, README can be expanded with:
+- an architecture diagram,
+- example .env template,
+- a screenshot/demo GIF, or
+- contributor & deployment instructions.
