@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
   try {
     await dbConnect();
 
-    const decodedUser = await (await jwtDecode(req)).json();
+    const decodedUser = await (await jwtDecode()).json();
     console.log(decodedUser);
 
     const { name, hackathonId, hackathonName } = await req.json();

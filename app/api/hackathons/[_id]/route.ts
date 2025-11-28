@@ -8,7 +8,7 @@ export async function GET(req: NextRequest, {params}: {params:Promise< {_id: str
     try {
         const {_id} = await params
         console.log("Request received")
-        const {collegeEmail} = await (await jwtDecode(req)).json().then(res => res.data)
+        const {collegeEmail} = await (await jwtDecode()).json().then(res => res.data)
         await dbConnect()
         
         const hackathon = await Hackathon.findById(_id)

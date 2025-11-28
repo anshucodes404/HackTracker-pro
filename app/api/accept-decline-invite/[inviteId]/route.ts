@@ -18,7 +18,7 @@ export async function POST(
 		const { action, teamId } = await req.json();
 		await dbConnect();
 		console.log("Team Id: ", inviteId);
-		const { _id, name, collegeEmail } = await (await jwtDecode(req))
+		const { _id, name, collegeEmail } = await (await jwtDecode())
 			.json()
 			.then((res) => res.data);
 

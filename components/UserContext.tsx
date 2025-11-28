@@ -12,6 +12,7 @@ import Loader from "./ui/Loader";
 interface UserData {
 	_id: string;
 	name: string;
+	profileImageUrl?: string;
 	collegeEmail: string;
    mobileNumber: string;
 	email: string;

@@ -7,7 +7,7 @@ import { User } from "@/models/user.model";
 export async function GET(req: NextRequest){
     try {
         await dbConnect()
-        const {_id} = await(await jwtDecode(req)).json().then(res => res.data)
+        const {_id} = await(await jwtDecode()).json().then(res => res.data)
 
         if(!_id){
             return NextResponse.json(
@@ -41,7 +41,7 @@ export async function GET(req: NextRequest){
 export async function PUT(req: NextRequest){
   try{
     await dbConnect()
-    const {_id} = await(await jwtDecode(req)).json().then(res => res.data)
+    const {_id} = await(await jwtDecode()).json().then(res => res.data)
     
     const body = await req.json()
     

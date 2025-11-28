@@ -1,35 +1,57 @@
+"use server";
+
+import { v2 as cloudinary } from "cloudinary";
+import jwtDecode from "@/lib/jwtDecode";
 import { NextResponse } from "next/server";
-import crypto from "crypto";
-import { ApiError } from "@/utils/ApiError";
-import { ApiResponse } from "@/utils/ApiResponse";
 
 const CLOUD_NAME = process.env.CLOUDINARY_CLOUD_NAME;
 const API_KEY = process.env.CLOUDINARY_API_KEY;
 const API_SECRET = process.env.CLOUDINARY_API_SECRET;
 
 if (!CLOUD_NAME || !API_KEY || !API_SECRET) {
-  throw new ApiError(500, "Cloudinary envs are missing");
+	console.error("Cloudinary environment variables are missing");
 }
 
 export async function GET() {
-  //TODO: Verification of user
+	if (!CLOUD_NAME || !API_KEY || !API_SECRET) {
+		return NextResponse.json({ success: false, message: "Server configuration error" }, { status: 500 });
+	}
 
-  if(!API_SECRET){
-    throw new ApiError(500, "Cloudinary API_SECRET is undefined")
-  }
+	const authResponse = await jwtDecode();
+	const authData = await authResponse.json();
 
-  const timestamp = Math.floor(Date.now() / 1000);
+	if (!authData.success) {
+		return NextResponse.json({ success: false, message: "Not authorized" });
+	}
 
-  const paramsToSign: Record<string, unknown> = {
-    folder: "hackathons",
-    timestamp,
-  };
+	cloudinary.config({
+		cloud_name: CLOUD_NAME,
+		api_key: API_KEY,
+		api_secret: API_SECRET,
+	});
 
-  const toSign = Object.keys(paramsToSign).sort().map(k => `${k}=${paramsToSign[k]}`).join("&")
+	const paramsToSign = {
+		timestamp: Math.floor(Date.now() / 1000),
+		folder: "profile_images",
+	};
 
-  const signature = crypto.createHmac("sha1", API_SECRET).update(toSign).digest("hex")
-  console.log(signature)
-  return NextResponse.json(
-    new ApiResponse(true, "Signature key created", {cloudName: CLOUD_NAME, apiKey: API_KEY, signature, timestamp, folder: paramsToSign.folder}), {status: 200}
-  )
+	const signature = cloudinary.utils.api_sign_request(
+		paramsToSign,
+		API_SECRET as string,
+	);
+
+
+	const uploadUrl = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
+
+	return NextResponse.json({
+		success: true,
+		data: {
+			uploadUrl,
+			signature: signature,
+			apiKey: API_KEY,
+			cloudName: CLOUD_NAME,
+			timestamp: paramsToSign.timestamp,
+			folder: paramsToSign.folder,
+		},
+	});
 }

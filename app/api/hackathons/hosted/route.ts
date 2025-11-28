@@ -8,7 +8,7 @@ export async function GET(req: NextRequest) {
   try {
     console.log("Hackathon call recieved");
     await dbConnect();
-    const { _id } = await (await jwtDecode(req)).json().then(res => res.data)
+    const { _id } = await (await jwtDecode()).json().then(res => res.data)
     const hackathons = await Hackathon.find({organiser: _id}).select(
       "-description -criteria -organiserEmail -socialLink -webSiteLink -createdAt -updatedAt -__v"
     );

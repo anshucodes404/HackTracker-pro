@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
     const body = await req.json()
     console.log(body)
   
-    const { _id, name, collegeEmail } = await (await jwtDecode(req)).json().then(res => res.data)
+    const { _id, name, collegeEmail } = await (await jwtDecode()).json().then(res => res.data)
   
     const { hackathonId, membersEmail, hackathonName, rules } = body;
   

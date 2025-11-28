@@ -2,6 +2,7 @@ import mongoose, { Schema, Document } from "mongoose";
 
 export interface IUser extends Document {
   name: string,
+  profileImageUrl?: string,
   mobileNumber: number,
   collegeEmail: string,
   email: string,
@@ -20,6 +21,9 @@ export const userSchema: Schema<IUser> = new Schema(
     name: {
       type: String,
       required: true
+    },
+    profileImageUrl: {
+      type: String,
     },
     mobileNumber: {
       type: Number,

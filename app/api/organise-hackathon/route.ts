@@ -42,7 +42,7 @@ export async function POST(req: NextRequest) {
 
     console.log(parsedBody);
 
-    const {_id, collegeEmail, name} = await(await jwtDecode(req)).json().then(res => res.data)
+    const {_id, collegeEmail, name} = await(await jwtDecode()).json().then(res => res.data)
     console.log(_id)
 
     const {

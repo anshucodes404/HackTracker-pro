@@ -1,19 +1,20 @@
 import { ApiResponse } from "@/utils/ApiResponse";
 import { cookies } from "next/headers";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import jwt from "jsonwebtoken"
 
 
-export default async function jwtDecode(req: NextRequest){
+export default async function jwtDecode(){
 
    try {
     console.log("Jwt decode request")
      const cookieToken = (await cookies()).get("Token")?.value
 
-     const headerToken = req.headers.get("Authorization")?.split(" ")[1]
+     //if in future want to get token fromm headers
+    //  const headerToken = req?.headers?.get("Authorization")?.split(" ")[1]
 
 
-     const token = cookieToken || headerToken
+     const token = cookieToken
 
      if(!token){
         console.error("NO token provided")

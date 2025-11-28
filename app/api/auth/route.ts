@@ -22,6 +22,7 @@ const logInSchema = z.object({
 
 const signUpSchema = z.object({
   name: z.string().min(2).max(50),
+  profileImageUrl: z.string().optional(),
   mobileNumber: z.coerce.number(),
   hostelEmail: z
     .string()
@@ -92,7 +93,7 @@ export async function POST(req: Request) {
         );
       }
 
-      const { name, collegeEmail, email, otp, mobileNumber, hostelEmail, branch, hostel, studyYear, githubLink, LinkedInLink } =
+      const { name,profileImageUrl, collegeEmail, email, otp, mobileNumber, hostelEmail, branch, hostel, studyYear, githubLink, LinkedInLink } =
         parsedBody.data;
 
       const otpDoc = await OTP.findOne({ collegeEmail });
@@ -106,6 +107,7 @@ export async function POST(req: Request) {
 
       user = await User.create({
         name,
+        profileImageUrl,
         mobileNumber: Number(mobileNumber),
         hostelEmail,
         hostel,

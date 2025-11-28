@@ -6,9 +6,13 @@ import { X } from "lucide-react";
 import { useToast } from "../ToastContext";
 import { useUser } from "../UserContext";
 import Loader from "../ui/Loader";
+import ProfileImageEdit from "../ProfileImageEdit";
+import uploadOnCloudinary from "@/lib/uploadOnCloudinary";
+
 
 type User = {
 	name: string;
+	profileImageUrl?: string;
 	mobileNumber: string;
 	collegeEmail: string;
 	email: string;
@@ -37,6 +41,7 @@ const ProfileEdit: React.FC<UserDataProps> = ({
 	const [saving, setSaving] = useState(false);
 	const { addToast } = useToast();
 	const { setUser } = useUser();
+	const [uploading, setUploading] = useState(false)
 
 	useEffect(() => {
 		if (isEditOpen) {
@@ -57,6 +62,8 @@ const ProfileEdit: React.FC<UserDataProps> = ({
 		const { name, value } = e.target;
 		setTempUser((prev) => ({ ...prev, [name]: value }));
 	};
+
+
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
@@ -82,6 +89,17 @@ const ProfileEdit: React.FC<UserDataProps> = ({
 		}
 	};
 
+	const uploadImage = async(file: File) => {
+		addToast("Uploading image...")
+		setUploading(true)
+		const url = await uploadOnCloudinary(file);
+		if(url){
+			setTempUser(prev => ({...prev, profileImageUrl: url}))
+		}
+		setUploading(false)
+		addToast("Image uploaded")
+	}
+
 	if (!isEditOpen) return null;
 
 	return (
@@ -104,6 +122,10 @@ const ProfileEdit: React.FC<UserDataProps> = ({
 							<X size={20} />
 						</button>
 					</div>
+
+					<section className="flex justify-center">
+						<ProfileImageEdit src={tempUser.profileImageUrl} name={tempUser.name} size={100} uploadImage={uploadImage} />
+					</section>
 
 					<Section title="Personal Details">
 						<div className="grid md:grid-cols-2 gap-5 mb-3">
@@ -212,18 +234,17 @@ const ProfileEdit: React.FC<UserDataProps> = ({
 						<Button type="button" onClick={onClose} variant="secondary">
 							Cancel
 						</Button>
-						<Button type="submit" disabled={saving}>
+						<Button type="submit" disabled={saving || uploading}>
 							{saving ? "Saving..." : "Save"}
 						</Button>
 					</div>
 				</div>
 				{saving &&
-					+(
+					(
 						<div className="absolute inset-0 z-40 flex items-center justify-center bg-white/60 backdrop-blur-sm">
-							+ <Loader />+{" "}
+							<Loader />
 						</div>
 					)}
-				+
 			</form>
 		</div>
 	);

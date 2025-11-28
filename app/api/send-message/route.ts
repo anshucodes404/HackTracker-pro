@@ -10,7 +10,7 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(req: NextRequest) {
   try {
     await dbConnect();
-    const { _id, name } = await (await jwtDecode(req)).json().then((res) => res.data);
+    const { _id, name } = await (await jwtDecode()).json().then((res) => res.data);
     const { message, sendToParticipants, hackathonId } = await req.json();
 
     console.log(message);

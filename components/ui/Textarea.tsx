@@ -10,8 +10,9 @@ const base = "border border-gray-300 rounded-md p-2 focus:outline-none focus:rin
 const Textarea: React.FC<TextareaProps> = ({label, className, ...props}) => {
     return (
         <div className="flex flex-col">
-            {label && <label className="text-sm font-medium text-gray-700 mb-1">{label}</label>}
-            <textarea className={clsx(base, className)} {...props} />
+            
+            {label && <label htmlFor={label} className="text-sm font-medium text-gray-700 mb-1">{label}</label>}
+            <textarea id={label} className={clsx(base, className)} {...props} />
         </div>
     )
 }
