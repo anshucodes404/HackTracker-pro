@@ -3,13 +3,14 @@ import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useUser } from "./UserContext";
+import ProfileImageView from "./ProfileImageView";
 
 interface AvatarProps {
-  imageUrl?: string;
-  user?: string;
+  name?: string;
+  src?: string;
 }
 
-const Avatar: React.FC<AvatarProps> = ({ user = "User" }) => {
+const Avatar: React.FC<AvatarProps> = ({ name, src }) => {
   const router = useRouter();
   const {setUser} = useUser()
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -39,14 +40,14 @@ const Avatar: React.FC<AvatarProps> = ({ user = "User" }) => {
       <button
       type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="w-10 h-10 rounded-lg bg-gray-200 hover:bg-blue-50 transition-colors flex items-center justify-center overflow-hidden hover:text-blue-600 focus:text-blue-600 focus:bg-blue-50 text-2xl font-semibold"
+        // className="w-10 h-10 rounded-lg bg-gray-200 hover:bg-blue-50 transition-colors flex items-center justify-center overflow-hidden hover:text-blue-600 focus:text-blue-600 focus:bg-blue-50 text-2xl font-semibold"
       >
-        {user.charAt(0).toUpperCase()}
+        <ProfileImageView name={name ?? "Guest"} src={src} size={35} />
       </button>
       {isOpen && (
         <div className="absolute right-0 mt-2 w-44 py-2 px-1 bg-white rounded-lg shadow-md border border-gray-200">
           <div className="px-4 py-2">
-            <p className="text-base font-medium text-gray-900">{user}</p>
+            <p className="text-base font-medium text-gray-900">{name}</p>
           </div>
           <hr className="text-gray-200" />
 

@@ -7,13 +7,14 @@ import Link from "next/link";
 import clsx from "clsx";
 import { usePathname } from "next/navigation";
 import { useUser } from "./UserContext";
+import {UserData} from "./UserContext";
 
 const Navbar = () => {
   const path = usePathname()
   const { user } = useUser()
 
   return (
-    <>
+    
       <div className="fixed top-0 w-full h-12 z-50 backdrop-blur-md bg-white/30 flex items-center justify-between px-30">
         <div className="flex items-center">
           <h1 className="logo text-2xl font-bold"><Link href={"/"}>HackHub</Link></h1>
@@ -31,10 +32,10 @@ const Navbar = () => {
             <Link href={"/signup"}><Button variant="secondary" className="cursor-pointer">Sign Up</Button></Link>
           </div>
         ) : (
-          <Avatar user={(user as any)?.name ?? "Guest"} />
+          <Avatar name={(user as UserData)?.name ?? "Guest"} src={(user as UserData)?.profileImageUrl} />
         )}
       </div>
-    </>
+    
   );
 };
 

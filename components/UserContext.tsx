@@ -9,7 +9,7 @@ import {
 } from "react";
 import Loader from "./ui/Loader";
 
-interface UserData {
+export interface UserData {
 	_id: string;
 	name: string;
 	profileImageUrl?: string;

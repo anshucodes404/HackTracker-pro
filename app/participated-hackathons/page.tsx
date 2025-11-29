@@ -1,11 +1,117 @@
-import React from 'react'
+import { Funnel, User } from "lucide-react";
+import HackathonCardMyHacks from "@/components/hackathons/HackathonCardMyHacks";
+import StatsCard from "@/components/StatsCard";
+import { Input } from "@/components/ui";
 
 const page = () => {
-  return (
-    <div className='mt-12'>
-      
-    </div>
-  )
-}
+	return (
+		<div className=" pt-24 w-full mx-auto max-w-7xl">
 
-export default page
+      <section className="fixed top-20 z-30 bg-white/80 backdrop-blur-md px-10 pb-8 border-b border-gray-200 ">
+			<h1 className="text-4xl font-bold text-center mb-8">
+				My Participated Hackathons
+			</h1>
+
+			<section className="flex gap-5 flex-wrap">
+				<StatsCard
+					title="Total Hackathons"
+					value={5}
+					icon={<User size={20} />}
+					color="text-blue-700"
+					bgColor="bg-blue-200/50"
+					borderColor="border-blue-500"
+				/>
+				<StatsCard
+					title="Teams Joined"
+					value={3}
+					icon={<User size={20} />}
+					color="text-green-700"
+					bgColor="bg-green-200/50"
+					borderColor="border-green-500"
+				/>
+				<StatsCard
+					title="Projects"
+					value={2}
+					icon={<User size={20} />}
+					color="text-amber-700"
+					bgColor="bg-amber-200/50"
+					borderColor="border-amber-500"
+				/>
+				<StatsCard
+					title="Awards"
+					value={1}
+					icon={<User size={20} />}
+					color="text-violet-700"
+					bgColor="bg-violet-200/50"
+					borderColor="border-violet-500"
+				/>
+				<StatsCard
+					title="Hours"
+					value={48}
+					icon={<User size={20} />}
+					color="text-red-700"
+					bgColor="bg-red-200/50"
+					borderColor="border-red-500"
+				/>
+			</section>
+			<section className="mt-10">
+				<div className="flex gap-1.5 items-center mb-1">
+					<Funnel size={20} /> Filters
+				</div>
+				<div className="flex gap-2">
+					<Input
+						type="text"
+						placeholder="Search Hackathons..."
+						className="w-2xl"
+					/>
+					<div className="grid grid-cols-4 gap-4 w-full max-w-5xl">
+						<select
+							name="status"
+							id="status"
+							className="rounded-lg px-2 border border-gray-300 min-w-20"
+						>
+							<option value="all">All</option>
+							<option value="upcoming">Upcoming</option>
+							<option value="ongoing">Ongoing</option>
+							<option value="ended">Ended</option>
+						</select>
+						<select
+							name="mode"
+							id="mode"
+							className="rounded-lg px-2 border border-gray-300"
+						>
+							<option value="all">All</option>
+							<option value="online">Online</option>
+							<option value="offline">Offline</option>
+						</select>
+						<select
+							name="role"
+							id="role"
+							className="rounded-lg px-2 border border-gray-300"
+						>
+							<option value="all">All</option>
+							<option value="online">Leader</option>
+							<option value="offline">Member</option>
+						</select>
+
+						<select
+							disabled={true}
+							name="team-status"
+							id="team-status"
+							className="rounded-lg px-2 border border-gray-300"
+						>
+							<option value="N/A">N/A</option>
+							<option value="Won">Won</option>
+							<option value="Disqualified">Disqualified</option>
+						</select>
+					</div>
+				</div>
+			</section>
+      </section>
+
+
+		</div>
+	);
+};
+
+export default page;
