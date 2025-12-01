@@ -67,7 +67,7 @@ const Avatar: React.FC<AvatarProps> = ({ name, src }) => {
               className="flex items-center w-full rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
             >
               <Lightbulb className="w-4 h-4 mr-2" />
-              My Hacks
+              Joined Hacks
             </Link>
 
             <Link
@@ -76,7 +76,7 @@ const Avatar: React.FC<AvatarProps> = ({ name, src }) => {
               className="flex items-center w-full rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
             >
               <Rocket className="w-4 h-4 mr-2" />
-              Hosted
+              Hosted Hacks
             </Link>
 
             <button

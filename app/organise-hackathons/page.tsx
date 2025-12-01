@@ -40,7 +40,7 @@ export default function Page() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="max-w-5xl mx-auto bg-white rounded-2xl shadow-md p-8 mt-20 mb-20 border border-gray-200">
+      <div className="max-w-5xl w-full mx-auto bg-white rounded-2xl shadow-md p-8 mt-20 mb-20 border border-gray-200">
         <div className="mb-6">
           <h1 className="text-2xl font-bold text-gray-900">🏁 Organize a Hackathon</h1>
           <p className="text-gray-600 text-sm mt-2">

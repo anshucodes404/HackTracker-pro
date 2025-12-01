@@ -100,3 +100,20 @@ export type Invite = {
 	status: "pending" | "accepted" | "declined";
 	rules: string[];
 };
+
+export type ParticipatedHackathonCardProps = {
+	data: {
+	_id: string;
+	hackathonName: string;
+	bannerImage?: string;
+	teamName: string;
+	startAt: Date;
+	mode: string;
+	location?: string;
+	organiserName: string;
+	minTeamSize: number;
+	maxTeamSize: number;
+	status: string;
+	}
+
+};

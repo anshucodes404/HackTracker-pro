@@ -7,7 +7,7 @@ export interface IHackathon extends Document {
   tagline?: string;
   description: string;
   prize: string;
-  participants?: mongoose.Types.ObjectId[];
+  participants?: mongoose.Types.ObjectId[]; //? TEAM IDs
   participantsEmails?: string[];  //? team leaders email
   rules?: string;
   organiser: mongoose.Types.ObjectId;
