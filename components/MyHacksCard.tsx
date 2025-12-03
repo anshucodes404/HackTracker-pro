@@ -6,7 +6,7 @@ import React, { useEffect, useRef, useState } from "react";
 
 interface MyHacksCardProps {
 	data: {
-		_id: string;
+		hackathonId: string;
 		hackathonName: string;
 		bannerImage?: string;
 		teamName: string;
@@ -14,7 +14,6 @@ interface MyHacksCardProps {
 		mode: string;
 		location?: string;
 		organiserName: string;
-		prize: string;
 		minTeamSize: number;
 		maxTeamSize: number;
 		status: string;
@@ -50,14 +49,13 @@ export default function MyHacksCard({ data }: MyHacksCardProps) {
 	return (
 		<div className="relative h-64 rounded-2xl overflow-visible">
 			{/** biome-ignore lint/a11y/noStaticElementInteractions: <> */}
-<div
+			<div
 				onMouseEnter={handleMouseEnter}
 				onMouseLeave={handleMouseLeave}
 				className={`group rounded-2xl overflow-hidden shadow-lg cursor-pointer h-full
                     transition transform duration-300 ease-out hover:scale-105 hover:-translate-y-1
                     ${isAbsolute ? "absolute inset-0 z-50" : "relative"}`}
 			>
-	
 				<div className="absolute inset-0">
 					<Image
 						src={data.bannerImage || "/placeholder.jpg"}
@@ -67,7 +65,6 @@ export default function MyHacksCard({ data }: MyHacksCardProps) {
 					/>
 					<div className="absolute inset-0 bg-black/40 group-hover:bg-black/60 transition-opacity duration-300" />
 				</div>
-
 
 				<div className="absolute inset-0 flex flex-col justify-end p-4 text-white">
 					<h2 className="text-xl font-bold">{data.hackathonName}</h2>
@@ -100,10 +97,9 @@ export default function MyHacksCard({ data }: MyHacksCardProps) {
 
 							<div>Mode: {data.mode}</div>
 							<div>Organiser: {data.organiserName}</div>
-							<div>Prize: {data.prize}</div>
 
 							<a
-								href={`/hackathons/${data._id}`}
+								href={`/hackathons/${data.hackathonId}`}
 								className="mt-3 inline-flex items-center gap-2 text-sm font-semibold bg-slate-800 text-white px-4 py-2 rounded-lg hover:opacity-95 transition"
 							>
 								View Details <ArrowRight size={16} />

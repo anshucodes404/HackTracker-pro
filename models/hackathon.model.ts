@@ -3,12 +3,12 @@ import mongoose, { Schema, Document } from "mongoose";
 export interface IHackathon extends Document {
   hackathonName: string;
   mode: "online" | "inplace";
-  location? : string;
+  location?: string;
   tagline?: string;
   description: string;
   prize: string;
   participants?: mongoose.Types.ObjectId[]; //? TEAM IDs
-  participantsEmails?: string[];  //? team leaders email
+  participantsEmails?: string[]; //? team leaders email
   rules?: string;
   organiser: mongoose.Types.ObjectId;
   organiserName: string;
@@ -37,20 +37,20 @@ const hackathonSchema = new Schema<IHackathon>(
     mode: {
       type: String,
       enum: ["online", "inplace"],
-      default: "online"
+      default: "online",
     },
     location: {
-      type: String
+      type: String,
     },
     tagline: {
-      type: String
+      type: String,
     },
     description: {
       type: String,
     },
     prize: {
-      type:String,
-      default: "0"
+      type: String,
+      default: "0",
     },
     participants: {
       type: [Schema.Types.ObjectId],
@@ -69,7 +69,7 @@ const hackathonSchema = new Schema<IHackathon>(
     },
     organiserName: {
       type: String,
-      required: true
+      required: true,
     },
     startAt: {
       type: Date,
@@ -77,11 +77,11 @@ const hackathonSchema = new Schema<IHackathon>(
     },
     duration: {
       type: String,
-      required: true
+      required: true,
     },
     registrationDeadline: {
       type: Date,
-      required: true
+      required: true,
     },
     minTeamSize: {
       type: Number,
@@ -91,24 +91,24 @@ const hackathonSchema = new Schema<IHackathon>(
     },
     criteria: {
       type: String,
-      required: true
+      required: true,
     },
     // bannerImage: {
     //   type: String
     // },
     organiserEmail: {
       type: String,
-      required: true
+      required: true,
     },
     OCEmails: {
       type: [String],
-      required: true
+      required: true,
     },
     socialLink: {
       type: String,
     },
     webSiteLink: {
-      type: String
+      type: String,
     },
     tags: {
       type: [String],
@@ -119,8 +119,9 @@ const hackathonSchema = new Schema<IHackathon>(
       default: "published",
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
-
-export const Hackathon = mongoose.models.Hackathon || mongoose.model<IHackathon>("Hackathon", hackathonSchema)
+export const Hackathon =
+  mongoose.models.Hackathon ||
+  mongoose.model<IHackathon>("Hackathon", hackathonSchema);

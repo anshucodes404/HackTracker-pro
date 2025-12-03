@@ -102,8 +102,9 @@ export type Invite = {
 };
 
 export type ParticipatedHackathonCardProps = {
+	hackathonId: Key | null | undefined;
 	data: {
-	_id: string;
+	hackathonId: string;
 	hackathonName: string;
 	bannerImage?: string;
 	teamName: string;
