@@ -2,6 +2,7 @@
 
 import { ArrowRight, Calendar, MapPin, Users } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
 
 interface MyHacksCardProps {
@@ -21,40 +22,11 @@ interface MyHacksCardProps {
 }
 
 export default function MyHacksCard({ data }: MyHacksCardProps) {
-	const [isAbsolute, setIsAbsolute] = useState(false);
-	const hoverTimer = useRef<number | null>(null);
-
-	useEffect(() => {
-		return () => {
-			if (hoverTimer.current) {
-				window.clearTimeout(hoverTimer.current);
-			}
-		};
-	}, []);
-
-	const handleMouseEnter = () => {
-		hoverTimer.current = window.setTimeout(() => {
-			setIsAbsolute(true);
-		}, 300);
-	};
-
-	const handleMouseLeave = () => {
-		if (hoverTimer.current) {
-			window.clearTimeout(hoverTimer.current);
-			hoverTimer.current = null;
-		}
-		setIsAbsolute(false);
-	};
-
 	return (
-		<div className="relative h-64 rounded-2xl overflow-visible">
-			{/** biome-ignore lint/a11y/noStaticElementInteractions: <> */}
+		<div className="relative h-64 rounded-2xl">
 			<div
-				onMouseEnter={handleMouseEnter}
-				onMouseLeave={handleMouseLeave}
-				className={`group rounded-2xl overflow-hidden shadow-lg cursor-pointer h-full
-                    transition transform duration-300 ease-out hover:scale-105 hover:-translate-y-1
-                    ${isAbsolute ? "absolute inset-0 z-50" : "relative"}`}
+				className="group rounded-2xl overflow-hidden shadow-lg cursor-pointer h-full
+                    transition transform duration-300 ease-out hover:scale-105 hover:-translate-y-1 relative "
 			>
 				<div className="absolute inset-0">
 					<Image
@@ -98,12 +70,12 @@ export default function MyHacksCard({ data }: MyHacksCardProps) {
 							<div>Mode: {data.mode}</div>
 							<div>Organiser: {data.organiserName}</div>
 
-							<a
+							<Link
 								href={`/hackathons/${data.hackathonId}`}
 								className="mt-3 inline-flex items-center gap-2 text-sm font-semibold bg-slate-800 text-white px-4 py-2 rounded-lg hover:opacity-95 transition"
 							>
 								View Details <ArrowRight size={16} />
-							</a>
+							</Link>
 						</div>
 					</div>
 				</div>
