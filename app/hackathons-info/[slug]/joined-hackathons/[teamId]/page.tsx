@@ -1,0 +1,71 @@
+"use client";
+
+import ProjectSubmission from "@/components/teams/ProjectSubmission";
+import TeamDetails from "@/components/teams/TeamDetails";
+import Image from "next/image";
+import { useParams } from "next/navigation";
+import React, { useState } from "react";
+
+const page = () => {
+	const teamId = useParams()?.teamId as string | undefined;
+	const [activeTab, setActiveTab] = useState<"details" | "submission">(
+		"details",
+	);
+
+	return (
+		<div className="max-w-6xl w-full mt-12 mx-auto">
+			<section>
+				<div className="flex">
+					<Image
+						src={
+							"https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1200&q=60"
+						}
+						alt="Image"
+						height={10}
+						width={60}
+						className="mx-3 py-2 rounded-md"
+					/>
+					<div className="">
+						<h1 className="text-xl font-bold">{teamId}</h1>
+						<p>hsgdugwe</p>
+					</div>
+				</div>
+			</section>
+
+			<main className="max-w-3xl w-full mx-auto my-10 space-y-6">
+				<section className="flex justify-center">
+					<div className="flex gap-3 py-2 px-3 bg-gray-100 rounded-full">
+						<button
+            type="button"
+							onClick={() => setActiveTab("details")}
+							className={`px-4 py-1 rounded-full transition-all ${
+								activeTab === "details"
+									? "bg-white text-slate-900 shadow-md"
+									: "text-gray-600 hover:text-gray-900"
+							} `}
+						>
+							Team Details
+						</button>
+						<button
+            type="button"
+							onClick={() => setActiveTab("submission")}
+							className={`px-4 py-1 rounded-full transition-all ${
+								activeTab === "submission"
+									? "bg-white text-slate-900 shadow-md"
+									: "text-gray-600 hover:text-gray-900"
+							} `}
+						>
+							Project submission
+						</button>
+					</div>
+				</section>
+
+				{activeTab === "details" && <TeamDetails />}
+
+				{activeTab === "submission" && <ProjectSubmission />}
+			</main>
+		</div>
+	);
+};
+
+export default page;

@@ -20,6 +20,8 @@ export async function GET(req: NextRequest, {params}: {params:Promise< {_id: str
             )
         }
 
+        //FIXME: change the logic for registered b/c now it's only for leader
+        
         const registered = hackathon.participantsEmails?.includes(collegeEmail)
 
         return NextResponse.json(

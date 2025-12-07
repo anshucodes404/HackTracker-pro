@@ -5,9 +5,10 @@ const TeamRegister = ({
   registrationDeadline,
   hackathonId,
   hackathonName,
-  setRegistered
+  setRegistered,
+  setOpenTeamRegister
 }: {
-  registrationDeadline: Date, hackathonId: string, hackathonName: string, setRegistered: (args: boolean) => void
+  registrationDeadline: Date, hackathonId: string, hackathonName: string, setRegistered: (args: boolean) => void, setOpenTeamRegister: (args: boolean) => void
 }) => {
 
     const [teamName, setTeamName] = useState<string>("")
@@ -23,6 +24,7 @@ const TeamRegister = ({
 
           if(res.success){
               setRegistered(true)
+              setOpenTeamRegister(false)
           }
   
           // console.log(res)

@@ -32,7 +32,7 @@ const Navbar = () => {
             <Link href={"/signup"}><Button variant="secondary" className="cursor-pointer">Sign Up</Button></Link>
           </div>
         ) : (
-          <Avatar name={(user as UserData)?.name ?? "Guest"} src={(user as UserData)?.profileImageUrl} />
+            <Avatar name={(user as UserData)?.name ?? "Guest"} src={(user as UserData)?.profileImageUrl} />        
         )}
       </div>
     

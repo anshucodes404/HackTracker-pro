@@ -1,6 +1,6 @@
 "use client";
 import Aside from "@/components/hackathons/Aside";
-import HackathonCard from "@/components/landing/HackathonCard";
+import HackathonCard from "@/components/hackathons/HackathonCard";
 import type { HackathonCardProps } from "@/types/types";
 import { useCallback, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";

@@ -44,9 +44,9 @@ const HackathonCard = ({
     if (!_id) return;
     
     if(path === "/hackathons"){
-      router.push(`/hackathons/${_id}`);
+      router.push(`/hackathons-info/${_id}`);
     } else {
-      router.push(`/hosted-hackathons/${_id}`)
+      router.push(`/hackathons-info/${_id}`)
     }
   };
 
@@ -55,7 +55,7 @@ const HackathonCard = ({
     <div className=" rounded-lg text-sm border border-gray-200/70 transition-colors shadow-md hover:bg-gray-200/80 hover:shadow-md mt-8 p-6 grid grid-cols-1 lg:grid-cols-[100px_2fr_1fr] h-52 max-w-5/6 overflow-y-hidden ">
       <section className="lg:block hidden">
         {bannerImage ? (
-          <Image src={bannerImage} alt="Banner" />
+          <Image src={bannerImage} alt="Banner" width={100} height={100} className="rounded-md" />
         ) : (
           <div>No banner</div>
         )}
@@ -77,7 +77,7 @@ const HackathonCard = ({
               {mode}
             </span> ) : 
              (<span className="flex gap-2 mt-2 items-center">
-              <Map size={4} />
+              <Map className="size-4" />
               {location}
             </span>)}
             <span className="flex gap-2 mt-2 items-center">
@@ -138,7 +138,7 @@ function Status(status: string) {
   } 
    if (status === "published") {
     return (
-      <span className="w-1/2 bg-gray-400 text-black px-4 py-1 rounded-full ">
+      <span className="w-1/2 bg-green-700 text-white px-4 py-1 rounded-full ">
         <span>{status.toUpperCase()}</span>
       </span>
     );
