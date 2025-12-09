@@ -92,7 +92,7 @@ const ProfileEdit: React.FC<UserDataProps> = ({
 	const uploadImage = async(file: File) => {
 		addToast("Uploading image...")
 		setUploading(true)
-		const url = await uploadOnCloudinary(file);
+		const url = await uploadOnCloudinary(file, "profile_images");
 		if(url){
 			setTempUser(prev => ({...prev, profileImageUrl: url}))
 		}

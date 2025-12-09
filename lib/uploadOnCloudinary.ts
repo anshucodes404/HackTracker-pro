@@ -1,8 +1,8 @@
 
 
-export default async function uploadOnCloudinary (file: File){
-	console.log("UPload started");
-	const responseData = await fetch("/api/cloudinary").then((res) => res.json());
+export default async function uploadOnCloudinary (file: File, folder: string){
+	console.log("Upload started");
+	const responseData = await fetch(`/api/cloudinary?folder=${folder}`).then((res) => res.json());
 
 	if (!responseData.success) {
 		console.error("Failed to get signature:", responseData.message);

@@ -15,10 +15,9 @@ const ProfileImageEdit: React.FC<ProfileImageProps> = ({
 	src,
 	name,
 	size = 56,
-
 	uploadImage,
 }) => {
-	const fileRef = useRef<HTMLInputElement | null>(null);
+	const fileRef = useRef<HTMLInputElement | null>(null); //isko input file ko active karne ke liye use kiye hain
 	const [previewUrl, setPreviewUrl] = useState<string | undefined>(src);
 
 	useEffect(() => {

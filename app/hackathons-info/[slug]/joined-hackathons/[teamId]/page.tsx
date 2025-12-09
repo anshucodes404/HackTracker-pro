@@ -1,6 +1,6 @@
 "use client";
 
-import ProjectSubmission from "@/components/teams/ProjectSubmission";
+import ProjectSubmission from "@/components/projects/ProjectSubmission";
 import TeamDetails from "@/components/teams/TeamDetails";
 import Image from "next/image";
 import { useParams } from "next/navigation";

@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { SetActive } from "../ui";
 import Members from "./Members";
 import Requests from "./Requests";
+import { UsersRound } from "lucide-react";
 
 const TeamDetails = () => {
 
@@ -18,7 +19,7 @@ const TeamDetails = () => {
 			</section>
 			<hr className="text-gray-300" />
 			<section className="mt-7">
-				<h3 className="text-center text-lg">Team: HackerEyes</h3>
+				<h3 className="text-center text-2xl font-bold flex items-center justify-center gap-2"><UsersRound />Team Details</h3>
 			</section>
             <section className="mt-6">
                 { activeTab === "members" && <Members />}

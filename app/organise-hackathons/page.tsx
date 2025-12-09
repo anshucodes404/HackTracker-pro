@@ -54,6 +54,7 @@ export default function Page() {
         <Section title="Basic Information">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <Input
+              required
               name="hackathonName"
               label="Hackathon Name"
               placeholder="Enter hackathon name"

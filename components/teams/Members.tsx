@@ -8,7 +8,15 @@ import MemberCard from "./MemberCard";
 const Members = () => {
 	return (
 		<div className="max-w-xl mx-auto w-full">
-			<div className="font-bold text-lg">Members: ({/* count here */})</div>
+			<div className="font-semibold text-lg flex justify-between px-3">
+        <div>
+        Members: ({/* count here */})
+        </div>
+        <div>
+          Team: HackerEyes
+        </div>
+        
+        </div>
 
 			<section className="mt-1.5">
 				<div>

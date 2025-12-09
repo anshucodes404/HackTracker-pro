@@ -25,3 +25,12 @@ body {
   color: var(--foreground);
   font-family: "Roboto", Helvetica, sans-serif;
 }
+
+.no-scrollbar {
+    overflow-y: scroll; 
+    scrollbar-width: none; /* ye wala firefox ke liye */
+}
+
+.no-scrollbar::-webkit-scrollbar {
+    display: none;  /* ye wala chrome, safari, edge ke liye */
+}
