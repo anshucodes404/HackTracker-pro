@@ -32,7 +32,7 @@ const SearchHackathons = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
             {/* Search Input */}
             <div>
-              <label className="block text-sm font-medium mb-2">Search</label>
+              <span className="block text-sm font-medium mb-2">Search</span>
               <input
                 type="text"
                 placeholder="Search hackathons..."
@@ -46,7 +46,7 @@ const SearchHackathons = () => {
 
             {/* Status Filter */}
             <div>
-              <label className="block text-sm font-medium mb-2">Status</label>
+              <span className="block text-sm font-medium mb-2">Status</span>
               <select
                 className="w-full px-4 py-2 rounded border border-border focus:outline-none focus:ring-1 focus:ring-primary"
                 value={filters.status}
@@ -66,9 +66,9 @@ const SearchHackathons = () => {
 
             {/* Team Size Filter */}
             <div>
-              <label className="block text-sm font-medium mb-2">
+              <span className="block text-sm font-medium mb-2">
                 Team Size
-              </label>
+              </span>
               <select
                 className="w-full px-4 py-2 rounded border border-border focus:outline-none focus:ring-1 focus:ring-primary"
                 value={filters.teamSize}
@@ -86,10 +86,11 @@ const SearchHackathons = () => {
 
             {/* Tags Filter */}
             <div>
-              <label className="block text-sm font-medium mb-2">Tags</label>
+              <span className="block text-sm font-medium mb-2">Tags</span>
               <div className="flex flex-wrap gap-2">
                 {availableTags.slice(0, 3).map((tag) => (
                   <button
+                    type="button"
                     key={tag}
                     onClick={() =>
                       setFilters((prev) => ({

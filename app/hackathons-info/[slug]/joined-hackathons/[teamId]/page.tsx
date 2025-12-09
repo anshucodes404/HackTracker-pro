@@ -36,7 +36,7 @@ const page = () => {
 				<section className="flex justify-center">
 					<div className="flex gap-3 py-2 px-3 bg-gray-100 rounded-full">
 						<button
-            type="button"
+							type="button"
 							onClick={() => setActiveTab("details")}
 							className={`px-4 py-1 rounded-full transition-all ${
 								activeTab === "details"
@@ -47,7 +47,7 @@ const page = () => {
 							Team Details
 						</button>
 						<button
-            type="button"
+							type="button"
 							onClick={() => setActiveTab("submission")}
 							className={`px-4 py-1 rounded-full transition-all ${
 								activeTab === "submission"
