@@ -1,8 +1,9 @@
+import { HackathonDetailsProps } from "@/types/types";
 import { CalendarDays, Globe, MapPin, Users } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-const HackathonDetails = ({ hackathon }) => {
+const HackathonDetails = ({ hackathon }: { hackathon: HackathonDetailsProps }) => {
    return (
       <div>
          <div className="w-full h-64 md:h-80 rounded-2xl overflow-hidden mb-10 shadow">

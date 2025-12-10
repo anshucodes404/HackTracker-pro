@@ -1,5 +1,4 @@
 import React from "react";
-import HackathonCard from "./HackathonCard";
 import { Button } from "../ui";
 import Link from "next/link";
 

@@ -1,5 +1,6 @@
 import dbConnect from "@/lib/dbConnect";
 import { Hackathon } from "@/models/hackathon.model";
+import { Query } from "@/types/types";
 import { ApiResponse } from "@/utils/ApiResponse";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
@@ -12,7 +13,7 @@ export async function GET(req: NextRequest) {
 		const status = searchParams.get("status")?.split(",");
 		const tags = searchParams.get("tags")?.split(",");
 
-		const query: any = {};
+		const query: Query = {};
 
 		if (search) {
 			query.hackathonName = { $regex: search, $options: "i" };

@@ -15,7 +15,7 @@ const Page = () => {
 
    useEffect(() => {
       if (user) router.push("/hackathons");
-   }, [user]);
+   }, [user, router]);
 
    const userObject = {
       name: "",
@@ -60,6 +60,8 @@ const Page = () => {
 
          console.log(data);
       } catch (error) {
+         console.error(error)
+         addToast("Error sending OTP. Please try again.");
       } finally {
          setIsSending(false);
       }

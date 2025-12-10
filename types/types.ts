@@ -102,7 +102,6 @@ export type Invite = {
 };
 
 export type ParticipatedHackathonCardProps = {
-	hackathonId: Key | null | undefined;
 	data: {
 	hackathonId: string;
 	hackathonName: string;
@@ -118,3 +117,32 @@ export type ParticipatedHackathonCardProps = {
 	}
 
 };
+
+export type HackathonDetailsProps = {
+	hackathonId: string;
+	bannerImage?: string;
+	hackathonName: string;
+	tagline?: string;
+	status?: string;
+	startAt: string;
+	duration: string;
+	minTeamSize: number;
+	maxTeamSize: number;
+	mode: "online" | "inplace";
+	location?: string;
+	description: string;
+	rules?: string;
+	criteria: string;
+	tags?: string[];
+	webSiteLink?: string;
+	socialLink?: string
+
+}
+
+
+export type Query = {
+	hackathonName?: { $regex: string; $options: string };
+	mode?: string;
+	status?: { $in: string[] } | { $ne: string };
+	tags?: { $in: string[] };
+}

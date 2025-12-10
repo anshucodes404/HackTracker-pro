@@ -10,6 +10,20 @@ import { ParticipatedHackathonCardProps } from "@/types/types";
 const page = () => {
 	const [hackathons, setHackathons] = useState<ParticipatedHackathonCardProps[]>([]);
 
+	// data: {
+	// 	hackathonId: string;
+	// 	hackathonName: string;
+	// 	bannerImage?: string;
+	// 	teamName: string;
+	// 	startAt: Date;
+	// 	mode: string;
+	// 	location?: string;
+	// 	organiserName: string;
+	// 	minTeamSize: number;
+	// 	maxTeamSize: number;
+	// 	status: string;
+	// };
+
 
 	//making request to fetch hackathons data
 
@@ -139,7 +153,7 @@ const page = () => {
 			<main className="flex-1 overflow-auto px-10 py-6">
 				<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
 					{hackathons.map((h) => (
-						<MyHacksCard key={h.hackathonId} data={h} />
+						<MyHacksCard key={h.data.hackathonId} data={h.data} />
 					))}
 				</div>
 			</main>

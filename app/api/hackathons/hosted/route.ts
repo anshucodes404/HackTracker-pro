@@ -4,7 +4,7 @@ import { Hackathon } from "@/models/hackathon.model";
 import { ApiResponse } from "@/utils/ApiResponse";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   try {
     console.log("Hackathon call recieved");
     await dbConnect();

@@ -1,6 +1,7 @@
 "use client";
 import Aside from "@/components/hackathons/Aside";
-import HackathonCard from "@/components/landing/HackathonCard";
+import HackathonCard from "@/components/hackathons/HackathonCard";
+
 import Loader from "@/components/ui/Loader";
 import type { HackathonCardProps } from "@/types/types";
 import { useEffect, useState } from "react";

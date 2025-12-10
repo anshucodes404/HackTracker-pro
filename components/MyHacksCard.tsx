@@ -3,35 +3,19 @@
 import { ArrowRight, Calendar, MapPin, Users } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
+import type { ParticipatedHackathonCardProps } from "@/types/types";
 
-interface MyHacksCardProps {
-	data: {
-		hackathonId: string;
-		hackathonName: string;
-		bannerImage?: string;
-		teamName: string;
-		startAt: Date;
-		mode: string;
-		location?: string;
-		organiserName: string;
-		minTeamSize: number;
-		maxTeamSize: number;
-		status: string;
-	};
-}
+export default function MyHacksCard({ data }: ParticipatedHackathonCardProps) {
+	const hackathon = data;
 
-export default function MyHacksCard({ data }: MyHacksCardProps) {
 	return (
 		<div className="relative h-64 rounded-2xl">
-			<div
-				className="group rounded-2xl overflow-hidden shadow-lg cursor-pointer h-full
-                    transition transform duration-300 ease-out hover:scale-105 hover:-translate-y-1 relative "
-			>
+			<div className="group rounded-2xl overflow-hidden shadow-lg cursor-pointer h-full transition transform duration-300 ease-out hover:scale-105 hover:-translate-y-1 relative">
 				<div className="absolute inset-0">
 					<Image
-						src={data.bannerImage || "/placeholder.jpg"}
-						alt={data.hackathonName}
+						src={hackathon.bannerImage || "/placeholder.jpg"}
+						alt={hackathon.hackathonName}
 						fill
 						className="object-cover"
 					/>
@@ -39,16 +23,16 @@ export default function MyHacksCard({ data }: MyHacksCardProps) {
 				</div>
 
 				<div className="absolute inset-0 flex flex-col justify-end p-4 text-white">
-					<h2 className="text-xl font-bold">{data.hackathonName}</h2>
-					<p className="text-sm opacity-80">Team: {data.teamName}</p>
+					<h2 className="text-xl font-bold">{hackathon.hackathonName}</h2>
+					<p className="text-sm opacity-80">Team: {hackathon.teamName}</p>
 
 					<div className="flex items-center gap-2 text-sm opacity-90 mt-1">
 						<Calendar size={16} />
-						{new Date(data.startAt).toDateString()}
+						{new Date(hackathon.startAt).toDateString()}
 					</div>
 
 					<span className="mt-2 inline-block px-3 py-1 text-xs rounded-full bg-white/20">
-						{data.status}
+						{hackathon.status}
 					</span>
 
 					<div className="mt-3 transition duration-300 transform opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100">
@@ -56,22 +40,22 @@ export default function MyHacksCard({ data }: MyHacksCardProps) {
 							<div className="flex items-center gap-2">
 								<Users size={16} />
 								<span>
-									Team Size: {data.minTeamSize}-{data.maxTeamSize}
+									Team Size: {hackathon.minTeamSize}-{hackathon.maxTeamSize}
 								</span>
 							</div>
 
-							{data.location && (
+							{hackathon.location && (
 								<div className="flex items-center gap-2">
 									<MapPin size={16} />
-									<span>{data.location}</span>
+									<span>{hackathon.location}</span>
 								</div>
 							)}
 
-							<div>Mode: {data.mode}</div>
-							<div>Organiser: {data.organiserName}</div>
+							<div>Mode: {hackathon.mode}</div>
+							<div>Organiser: {hackathon.organiserName}</div>
 
 							<Link
-								href={`/hackathons/${data.hackathonId}`}
+								href={`/hackathons/${hackathon.hackathonId}`}
 								className="mt-3 inline-flex items-center gap-2 text-sm font-semibold bg-slate-800 text-white px-4 py-2 rounded-lg hover:opacity-95 transition"
 							>
 								View Details <ArrowRight size={16} />
