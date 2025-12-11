@@ -54,7 +54,7 @@ export async function POST(req: NextRequest) {
     const { name: teamName } = teamDetails
   
   
-    const inviteLink = `http://localhost:3000/accept-invite/${invite._id}`
+    const inviteLink = `https://hack-hub-two.vercel.app/accept-invite/${invite._id}`
   
   
     await sendInviteEmail(teamMembersEmail, teamName, inviteLink, hackathonName, name);
