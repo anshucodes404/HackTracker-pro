@@ -103,19 +103,18 @@ export type Invite = {
 
 export type ParticipatedHackathonCardProps = {
 	data: {
-	hackathonId: string;
-	hackathonName: string;
-	bannerImage?: string;
-	teamName: string;
-	startAt: Date;
-	mode: string;
-	location?: string;
-	organiserName: string;
-	minTeamSize: number;
-	maxTeamSize: number;
-	status: string;
-	}
-
+		hackathonId: string;
+		hackathonName: string;
+		bannerImage?: string;
+		teamName: string;
+		startAt: Date;
+		mode: string;
+		location?: string;
+		organiserName: string;
+		minTeamSize: number;
+		maxTeamSize: number;
+		status: string;
+	};
 };
 
 export type HackathonDetailsProps = {
@@ -135,14 +134,27 @@ export type HackathonDetailsProps = {
 	criteria: string;
 	tags?: string[];
 	webSiteLink?: string;
-	socialLink?: string
-
-}
-
+	socialLink?: string;
+};
 
 export type Query = {
 	hackathonName?: { $regex: string; $options: string };
 	mode?: string;
 	status?: { $in: string[] } | { $ne: string };
 	tags?: { $in: string[] };
-}
+};
+
+export type TeamDetails = {
+	_id: string;
+	name: string;
+	role: "leader" | "member";
+	collegeEmail: string;
+	members: {
+		userId: {
+			profileImageUrl?: string;
+		};
+		role: "leader" | "member";
+		name: string;
+		collegeEmail: string;
+	}[];
+};

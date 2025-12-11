@@ -2,7 +2,7 @@
 
 import { v2 as cloudinary } from "cloudinary";
 import jwtDecode from "@/lib/jwtDecode";
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 
 const CLOUD_NAME = process.env.CLOUDINARY_CLOUD_NAME;
 const API_KEY = process.env.CLOUDINARY_API_KEY;
