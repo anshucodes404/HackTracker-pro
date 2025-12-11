@@ -1,10 +1,10 @@
 import dbConnect from "@/lib/dbConnect";
 import { Team } from "@/models/team.model";
 import { ApiResponse } from "@/utils/ApiResponse";
-import { NextResponse } from "next/server";
+import { NextResponse, type NextRequest } from "next/server";
 
 //This is to get all teams for a hackathon
-export async function GET({ params }: { params: Promise<{ _id: string }> }) {
+export async function GET(req: NextRequest, { params }: { params: Promise<{ _id: string }> }) {
 	try {
 		const { _id } = await params;
 		await dbConnect();
